@@ -11,3 +11,4 @@ PROMPT='%F{green}%n%f%F{white}@%f%F{cyan}%m%f %F{blue}%~%f %F{red}${vcs_info_msg
 source ~/.repos/znap/znap.zsh
 znap source marlonrichert/zsh-autocomplete
 
+neofetch

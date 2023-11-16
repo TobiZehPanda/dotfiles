@@ -8,4 +8,4 @@ set ignorecase
 set smartcase
 set showmatch
 set hlsearch
-
+syntax enable
