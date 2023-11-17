@@ -24,4 +24,6 @@ ln -s $pwd/.config/i3status/config ~/.config/i3status/config
 
 if_exists ~/.Xresources
 ln -s $pwd/.Xresources ~/.Xresources
+
+if_exists ~/.Xdefaults
 ln -s $pwd/.Xresources ~/.Xdefaults
