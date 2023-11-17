@@ -14,5 +14,6 @@ znap source marlonrichert/zsh-autocomplete
 export PATH=$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH
 
 alias ls='ls --color=auto'
+alias grep='grep --color'
 
 neofetch
