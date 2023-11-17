@@ -27,6 +27,10 @@ font pango: Terminus (TTF) bold 10
 # font, it doesn't scale on retina/hidpi displays.
 
 default_border pixel 1
+
+exec --no-startup-id feh -z ~/.wallpaper --bg-fill
+exec --no-startup-id picom
+
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
 set $up l
