@@ -30,6 +30,7 @@ default_border pixel 1
 
 exec --no-startup-id feh -z ~/.wallpaper --bg-fill
 exec --no-startup-id picom
+exec onboard
 
 # use these keys for focus, movement, and resize directions when reaching for
 # the arrows is not convenient
@@ -232,7 +233,7 @@ bar {
     mode dock
     position top
     strip_workspace_numbers yes
-    font pango: Terminus (TTF) medium 10
+    font pango: Terminus (TTF) medium 14
     separator_symbol ")("
 
     colors {

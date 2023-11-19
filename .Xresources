@@ -29,10 +29,10 @@
 
 
 !! URxvt Appearance
-URxvt.font: xft:Comic Code:size=8
-URxvt.boldFont: xft:Comic Code:size=8:style=bold
-URxvt.italicFont:  xft:Comic Code:size=8:style=italic
-URxvt.boldItalicfont:  xft:Comic Code:size=8:style=bold italic
+URxvt.font: xft:Comic Code:size=14
+URxvt.boldFont: xft:Comic Code:size=14:style=bold
+URxvt.italicFont:  xft:Comic Code:size=14:style=italic
+URxvt.boldItalicfont:  xft:Comic Code:size=14:style=bold italic
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
