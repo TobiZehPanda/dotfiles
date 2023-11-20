@@ -12,10 +12,10 @@ source ~/.repos/znap/znap.zsh
 znap source marlonrichert/zsh-autocomplete
 
 export PATH=$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH
+export EDITOR=vim
 
 alias ls='ls --color=auto'
 alias grep='grep --color'
 
-export EDITOR=vim
 
 neofetch

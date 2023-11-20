@@ -27,3 +27,6 @@ ln -s $pwd/.Xresources ~/.Xresources
 
 if_exists ~/.Xdefaults
 ln -s $pwd/.Xresources ~/.Xdefaults
+
+if_exists ~/.config/user-dirs.dirs
+ln -s $pwd/.config/user-dirs.dirs ~/.config/user-dirs.dirs

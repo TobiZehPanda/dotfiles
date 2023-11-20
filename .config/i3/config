@@ -30,6 +30,9 @@ default_border pixel 1
 
 exec --no-startup-id feh -z ~/.wallpaper --bg-fill
 exec --no-startup-id picom
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id tracker3 daemon
+exec --no-startup-id blueman-applet
 exec onboard
 
 # use these keys for focus, movement, and resize directions when reaching for
@@ -38,6 +41,12 @@ set $up l
 set $down k
 set $left j
 set $right semicolon
+
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
 
 # use Mouse+$modkey to drag floating windows to their wanted position
 floating_modifier $modkey
