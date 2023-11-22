@@ -16,6 +16,6 @@ export EDITOR=vim
 
 alias ls='ls --color=auto'
 alias grep='grep --color'
-
+alias public_ip='curl --ipv4 ifconfig.me'
 
 #neofetch
