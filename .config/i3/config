@@ -33,6 +33,7 @@ exec --no-startup-id picom
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id tracker3 daemon
 exec --no-startup-id blueman-applet
+#exec --no-startup-id dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 exec onboard
 
 # use these keys for focus, movement, and resize directions when reaching for
