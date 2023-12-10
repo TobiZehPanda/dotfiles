@@ -4,7 +4,7 @@
 
 ```sh
   git pull
-  git submodule --recursive --init or git submodules --recursive --remote
+  git submodule update --recursive --init or git submodules update --recursive --remote
 ```
 Then open .vimrc in VIM
 ```vim
