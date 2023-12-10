@@ -22,6 +22,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'godlygeek/tabular'
 Plugin 'iamcco/markdown-preview.nvim'
+" call mkdp#util#install()
 
 call vundle#end()
 filetype plugin indent on
