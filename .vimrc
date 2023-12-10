@@ -19,3 +19,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
+
+call vundle#end()
+filetype plugin indent on
+
+let g:vim_markdown_folding_disabled = 1
