@@ -33,6 +33,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'zackhsi/fzf-tags'
+Plug 'markonm/traces.vim'
+Plug 'bounceme/poppy.vim'
+Plug 'ap/vim-css-color'
 
 call plug#end()
 
@@ -47,4 +50,4 @@ let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_port = "1234"
 
-
+au! cursormoved * call PoppyInit()
