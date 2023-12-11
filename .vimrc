@@ -36,6 +36,7 @@ Plug 'zackhsi/fzf-tags'
 Plug 'markonm/traces.vim'
 Plug 'bounceme/poppy.vim'
 Plug 'ap/vim-css-color'
+Plug 'dense-analysis/ale'
 
 call plug#end()
 
@@ -49,5 +50,7 @@ let g:markdown_enable_spell_checking = 0
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_port = "1234"
+
+let g:ale_set_signs = 0
 
 au! cursormoved * call PoppyInit()
