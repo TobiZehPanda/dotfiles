@@ -11,8 +11,6 @@ syntax enable
 
 let mapleader = ','
 
-set nocompatible
-filetype off
 
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -37,9 +35,19 @@ Plug 'markonm/traces.vim'
 Plug 'bounceme/poppy.vim'
 Plug 'ap/vim-css-color'
 Plug 'dense-analysis/ale'
+Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rustfmt'
+Plug 'rust-lang/rust-analyzer'
+Plug 'rust-lang/rust-clippy'
+Plug 'cespare/vim-toml'
+Plug 'Yggdroot/indentLine'
+Plug 'mattn/emmet-vim'
+Plug 'vim-airline/vim-airline'
 
 call plug#end()
 
+set nocompatible
+set completeopt=menu,menuone,preview,noselect,noinsert
 filetype plugin indent on
 
 let g:markdown_include_jekyll_support = 1
@@ -47,10 +55,18 @@ let g:markdown_enable_folding = 0
 let g:markdown_enable_conceal = 1
 let g:markdown_enable_spell_checking = 0
 
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_port = "1234"
 
 let g:ale_set_signs = 0
+let g:all_completion_enabled = 1
+let g:ale_linters = { 'rust': ['analyzer', 'cargo'] }
+let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
+
+let g:rustfmt_autosave = 1
+let g:rust_recommended_style = 0
 
 au! cursormoved * call PoppyInit()
+
+hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
