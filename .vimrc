@@ -7,6 +7,7 @@ set ignorecase
 set smartcase
 set showmatch
 set hlsearch
+set backupcopy=yes
 syntax enable
 
 let mapleader = ','
@@ -30,6 +31,8 @@ Plug 'godlygeek/tabular'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'zackhsi/fzf-tags'
 Plug 'markonm/traces.vim'
 Plug 'bounceme/poppy.vim'
@@ -43,6 +46,10 @@ Plug 'cespare/vim-toml'
 Plug 'Yggdroot/indentLine'
 Plug 'mattn/emmet-vim'
 Plug 'vim-airline/vim-airline'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
+Plug 'majutsushi/tagbar'
+Plug 'universal-ctags/ctags'
+Plug 'rstacruz/vim-closer'
 
 call plug#end()
 
@@ -67,6 +74,14 @@ let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lin
 let g:rustfmt_autosave = 1
 let g:rust_recommended_style = 0
 
+let g:user_emmet_leader_key=','
+
 au! cursormoved * call PoppyInit()
 
 hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
+
+xmap ga <Plug>(EasyAlign)
+
+nmap ga <Plug>(EasyAlign)
+nmap <F8> :TagbarToggle<CR>
+
