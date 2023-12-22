@@ -50,6 +50,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --producti
 Plug 'majutsushi/tagbar'
 Plug 'universal-ctags/ctags'
 Plug 'rstacruz/vim-closer'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -79,9 +80,10 @@ let g:user_emmet_leader_key=','
 au! cursormoved * call PoppyInit()
 
 hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
+hi ALEWarning cterm=underline ctermfg=red ctermbg=NONE
 
 xmap ga <Plug>(EasyAlign)
-
 nmap ga <Plug>(EasyAlign)
 nmap <F8> :TagbarToggle<CR>
+map ; :Files<CR>
 
