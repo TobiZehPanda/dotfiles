@@ -1,32 +1,39 @@
-! special 
-*.foreground: #93a1a1
-*.background: rgba:0000/0000/0200/c800
-*.cursorColor: #afbfbf
-! black 
-*.color0: #16181d
-*.color8: #16181d
-! red
-*.color1: #b52a43
-*.color9: #ea526f
-! green
-*.color2: #52de9f
-*.color10: #aaf0d1
-! yellow
-*.color3: #fa9c4d
-*.color11: #ffad69
-! blue
-*.color4: #0a8cf0
-*.color12: #279af1
-! magenta
-*.color5: #5e2c91
-*.color13: #745296
-! cyan
-*.color6: #289c93
-*.color14: #33c5ba
-! white
-*.color7: #bfbaac
-*.color15: #fdf6e3
+! special
+URxvt.background: #1E1E2E
+URxvt.foreground: #CDD6F4
+URxvt.cursorColor: #F5E0DC
 
+! black
+URxvt.color0: #45475A
+URxvt.color8: #585B70
+
+! red
+URxvt.color1: #F38BA8
+URxvt.color9: #F38BA8
+
+! green
+URxvt.color2: #A6E3A1
+URxvt.color10: #A6E3A1
+
+! yellow
+URxvt.color3: #F9E2AF
+URxvt.color11: #F9E2AF
+
+! blue
+URxvt.color4: #89B4FA
+URxvt.color12: #89B4FA
+
+! magenta
+URxvt.color5: #F5C2E7
+URxvt.color13: #F5C2E7
+
+! cyan
+URxvt.color6: #94E2D5
+URxvt.color14: #94E2D5
+
+! white
+URxvt.color7: #BAC2DE
+URxvt.color15: #A6ADC8
 
 !! URxvt Appearance
 URxvt.font: xft:Comic Code:size=14
