@@ -30,6 +30,6 @@ ln -s $pwd/.Xresources ~/.Xresources
 if_exists ~/.Xdefaults
 ln -s $pwd/.Xresources ~/.Xdefaults
 
-if_exists ~/.vim
-ln -s $pwd/.vim ~/.vim
+if_exists ~/.zsh
+ln -s $pwd/.zsh ~/.zsh
 
