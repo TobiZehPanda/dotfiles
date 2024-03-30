@@ -18,4 +18,5 @@ alias ls='ls --color=auto'
 alias grep='grep --color'
 alias public_ip='curl --ipv4 ifconfig.me'
 
-#neofetch
+source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

@@ -257,7 +257,7 @@ bar {
         statusline  $text
 
         #Where              #Border         #Background     #Text
-        focused_workspace   $surface0    $green       $text
+        focused_workspace   $surface0    $green       $crust
         urgent_workspace    $surface0    $base        $text
         inactive_workspace  $surface0    $base        $text
     }
