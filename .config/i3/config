@@ -4,8 +4,6 @@
 #
 # This config file uses keycodes (bindsym) and was written for the QWERTY
 # layout.
-#
-# To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
 
 # $modkey for ALT and Mod4 for Winkey
@@ -147,7 +145,6 @@ set_from_resource $xcolor7 color7
 set_from_resource $xcolor15 color15
 
 
-# Colors
 # Class                 border          backgr      text            indic
 client.focused          $xcolor2       $xcolor2     $xbackground   $xcolor7
 client.focused_inactive $xcolor6       $xcolor0     $xcolor14
@@ -290,7 +287,7 @@ mode "$mode_system" {
 bindsym $modkey+Shift+e mode "$mode_system"
 
 # Misc (above)
-new_window pixel 4
+#new_window pixel 4
 
 # Floating dialogs
 for_window [window_role="pop-up"] floating enable
