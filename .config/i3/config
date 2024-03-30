@@ -1,3 +1,4 @@
+
 #i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -123,34 +124,40 @@ bindsym $modkey+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $modkey+minus scratchpad show
 
-# Enable the setion below to fetch all the colors from Xresources
-set_from_resource $xforeground foreground
-set $xbackground #16181d
-set_from_resource $xcursor cursorColor
-set_from_resource $xcolor0 color0
-set_from_resource $xcolor8 color8
-set_from_resource $xcolor1 color1
-set_from_resource $xcolor9 color9
-set_from_resource $xcolor2 color2
-set_from_resource $xcolor10 color10
-set_from_resource $xcolor3 color3
-set_from_resource $xcolor11 color11
-set_from_resource $xcolor4 color4
-set_from_resource $xcolor12 color12
-set_from_resource $xcolor5 color5
-set_from_resource $xcolor13 color13
-set_from_resource $xcolor6 color6
-set_from_resource $xcolor14 color14
-set_from_resource $xcolor7 color7
-set_from_resource $xcolor15 color15
+set $rosewater #f5e0dc
+set $flamingo  #f2cdcd
+set $pink      #f5c2e7
+set $mauve     #cba6f7
+set $red       #f38ba8
+set $maroon    #eba0ac
+set $peach     #fab387
+set $yellow    #f9e2af
+set $green     #a6e3a1
+set $teal      #94e2d5
+set $sky       #89dceb
+set $sapphire  #74c7ec
+set $blue      #89b4fa
+set $lavender  #b4befe
+set $text      #cdd6f4
+set $subtext1  #bac2de
+set $subtext0  #a6adc8
+set $overlay2  #9399b2
+set $overlay1  #7f849c
+set $overlay0  #6c7086
+set $surface2  #585b70
+set $surface1  #45475a
+set $surface0  #313244
+set $base      #1e1e2e
+set $mantle    #181825
+set $crust     #11111b 
 
+# Class                 border          backgr      text        indic
+client.focused          $green         $green       $text       $red
+client.focused_inactive $peach         $peach       $text
+client.unfocused        $teal          $teal        $text
+client.urgent           $red           $red         $red
+client.placeholder      $blue          $blue        $text
 
-# Class                 border          backgr      text            indic
-client.focused          $xcolor2       $xcolor2     $xbackground   $xcolor7
-client.focused_inactive $xcolor6       $xcolor0     $xcolor14
-client.unfocused        $xcolor6       $xcolor0     $xcolor14
-client.urgent           $xbackground   $xcolor9     $xbackground
-client.placeholder      $xcolor7       $xcolor7     $xcolor14
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -246,15 +253,15 @@ bar {
 
     colors {
         #Where      #Color
-        background  $xbackground
-        statusline  $xforeground
+        background  $crust
+        statusline  $text
 
         #Where              #Border         #Background     #Text
-        focused_workspace   $xbackground    $xcolor2        $xbackground
-        #urgent_workspace    $xbackground    $xcolor9        $xbackground
-        urgent_workspace    $xbackground    $xcolor1        $xbackground
-        inactive_workspace  $xbackground    $xcolor0        $xforeground
+        focused_workspace   $surface0    $green       $text
+        urgent_workspace    $surface0    $base        $text
+        inactive_workspace  $surface0    $base        $text
     }
+
 }
 
 # Toggle bar
@@ -335,14 +342,3 @@ mode "$mode_gaps_outer" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
-######################################################################
-# automatically start i3-config-wizard to offer the user to create a
-# keysym-based config which used their favorite modifier (alt or windows)
-#
-# i3-config-wizard will not launch if there already is a config file
-# in ~/.i3/config.
-#
-# Please remove the following exec line:
-#######################################################################
-exec --no-startup-id i3-config-wizard
