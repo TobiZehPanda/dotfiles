@@ -51,6 +51,7 @@ Plug 'majutsushi/tagbar'
 Plug 'universal-ctags/ctags'
 Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-commentary'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 call plug#end()
 
@@ -87,3 +88,4 @@ nmap ga <Plug>(EasyAlign)
 nmap <F8> :TagbarToggle<CR>
 map ; :Files<CR>
 
+colorscheme catppuccin_mocha
