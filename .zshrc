@@ -20,3 +20,5 @@ alias public_ip='curl --ipv4 ifconfig.me'
 
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export PF_ASCII="Catppuccin"

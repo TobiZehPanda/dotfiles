@@ -78,6 +78,8 @@ let g:rust_recommended_style = 0
 
 let g:user_emmet_leader_key=','
 
+let g:airline_theme = 'catppuccin_mocha'
+
 au! cursormoved * call PoppyInit()
 
 hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
