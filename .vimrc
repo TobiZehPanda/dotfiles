@@ -52,6 +52,7 @@ Plug 'universal-ctags/ctags'
 Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-commentary'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'rsaraf/vim-advanced-lint'
 
 call plug#end()
 
@@ -70,8 +71,9 @@ let g:mkdp_port = "1234"
 
 let g:ale_set_signs = 0
 let g:all_completion_enabled = 1
-let g:ale_linters = { 'rust': ['analyzer', 'cargo'] }
+let g:ale_linters = { 'rust': ['analyzer', 'cargo'], 'c': 'all'  }
 let g:ale_fixers = { 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'] }
+let b:ale_linters = 'all'
 
 let g:rustfmt_autosave = 1
 let g:rust_recommended_style = 0
