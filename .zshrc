@@ -14,10 +14,12 @@ znap source marlonrichert/zsh-autocomplete
 export PATH=$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH
 export EDITOR=vim
 export PF_ASCII="Catppuccin"
+export PF_COL3=1
 export PASTEL_COLOR_MODE=24bit
 
 alias ls='ls --color=auto'
 alias grep='grep --color'
+alias ip='ip -color=auto'
 alias public_ip='curl --ipv4 ifconfig.me'
 alias tb="nc termbin.com 9999"
 

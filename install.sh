@@ -2,7 +2,7 @@
 
 pwd=$(pwd)
 
-if_exists () {
+if_exists() {
     if [ -f "$1" ]; then
       rm "$1"
     elif [ -L "$1" ]; then
@@ -11,13 +11,6 @@ if_exists () {
       rm -r "$1"
     fi
 }
-
-if pacman -Qi gum > /dev/null; then
-  echo "Gum is installed"
-else
-  echo "Installing gum"
-  sudo pacman -S --noconfirm gum
-fi
 
 link_vim() {
   echo "Installing vim links"
@@ -50,6 +43,13 @@ link_i3() {
   if_exists ~/.config/i3status/config
   ln -s $pwd/.config/i3status/config ~/.config/i3status/config
 }
+
+if pacman -Qi gum > /dev/null; then
+  echo "Gum is installed"
+else
+  echo "Installing gum"
+  sudo pacman -S --noconfirm gum
+fi
 
 TYPE=$(gum choose --no-limit "vim" "zsh" "xorg" "i3")
 grep -q "vim" <<< "$TYPE" && link_vim
