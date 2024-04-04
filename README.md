@@ -3,12 +3,7 @@
 ## Installation
 
 ```sh
-  git pull
-  git submodule update --recursive --init or git submodules update --recursive --remote
+./install.sh
 ```
-Then open .vimrc in VIM
-```vim
-  source %
-  PluginInstall
-  call mkdp#util#install()
-```
+
+
