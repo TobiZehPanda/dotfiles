@@ -12,24 +12,67 @@ if_exists () {
     fi
 }
 
-if_exists ~/.zshrc
-ln -s $pwd/.zshrc ~/.zshrc
+if pacman -Qi gum > /dev/null; then
+  echo "Gum is installed"
+else
+  echo "Installing gum"
+  sudo pacman -S --noconfirm gum
+fi
 
-if_exists ~/.vimrc
-ln -s $pwd/.vimrc ~/.vimrc
+TYPE=$(gum choose "all" "vim" "zsh" "xorg" "i3")
 
-if_exists ~/.config/i3/config
-ln -s $pwd/.config/i3/config ~/.config/i3/config
+case $TYPE in
+  "all")
+    echo "Installing all links"
+    if_exists ~/.vimrc
+    ln -s $pwd/.vimrc ~/.vimrc
+    
+    if_exists ~/.zshrc
+    ln -s $pwd/.zshrc ~/.zshrc
+    
+    if_exists ~/.zsh
+    ln -s $pwd/.zsh ~/.zsh
+    
+    if_exists ~/.Xresources
+    ln -s $pwd/.Xresources ~/.Xresources
+    
+    if_exists ~/.Xdefaults
+    ln -s $pwd/.Xresources ~/.Xdefaults
+    
+    if_exists ~/.config/i3/config
+    ln -s $pwd/.config/i3/config ~/.config/i3/config
+    
+    if_exists ~/.config/i3status/config
+    ln -s $pwd/.config/i3status/config ~/.config/i3status/config;;
 
-if_exists ~/.config/i3status/config
-ln -s $pwd/.config/i3status/config ~/.config/i3status/config
+  "vim")
+    echo "Installing vim links"
+    if_exists ~/.vimrc
+    ln -s $pwd/.vimrc ~/.vimrc;;
 
-if_exists ~/.Xresources
-ln -s $pwd/.Xresources ~/.Xresources
+  "zsh")
+    echo "Installing zsh links"
+    if_exists ~/.zshrc
+    ln -s $pwd/.zshrc ~/.zshrc
+    
+    if_exists ~/.zsh
+    ln -s $pwd/.zsh ~/.zsh;;
 
-if_exists ~/.Xdefaults
-ln -s $pwd/.Xresources ~/.Xdefaults
+  "xorg")
+    echo "Installing Xorg links"
+    if_exists ~/.Xresources
+    ln -s $pwd/.Xresources ~/.Xresources
+    
+    if_exists ~/.Xdefaults
+    ln -s $pwd/.Xresources ~/.Xdefaults;;
 
-if_exists ~/.zsh
-ln -s $pwd/.zsh ~/.zsh
+  "i3")
+    echo "Installing i3 links"
+    if_exists ~/.config/i3/config
+    ln -s $pwd/.config/i3/config ~/.config/i3/config
+    
+    if_exists ~/.config/i3status/config
+    ln -s $pwd/.config/i3status/config ~/.config/i3status/config;;
+esac
 
+echo "Done :)"

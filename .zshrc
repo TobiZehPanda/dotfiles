@@ -13,12 +13,20 @@ znap source marlonrichert/zsh-autocomplete
 
 export PATH=$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH
 export EDITOR=vim
+export PF_ASCII="Catppuccin"
+export PASTEL_COLOR_MODE=24bit
 
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias public_ip='curl --ipv4 ifconfig.me'
+alias tb="nc termbin.com 9999"
 
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export PF_ASCII="Catppuccin"
+#History
+export HISTFILE=~/.histfile
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+setopt appendhistory
