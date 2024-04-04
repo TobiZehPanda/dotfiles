@@ -19,60 +19,42 @@ else
   sudo pacman -S --noconfirm gum
 fi
 
-TYPE=$(gum choose "all" "vim" "zsh" "xorg" "i3")
+link_vim() {
+  echo "Installing vim links"
+  if_exists ~/.vimrc
+  ln -s $pwd/.vimrc ~/.vimrc
+}
 
-case $TYPE in
-  "all")
-    echo "Installing all links"
-    if_exists ~/.vimrc
-    ln -s $pwd/.vimrc ~/.vimrc
-    
-    if_exists ~/.zshrc
-    ln -s $pwd/.zshrc ~/.zshrc
-    
-    if_exists ~/.zsh
-    ln -s $pwd/.zsh ~/.zsh
-    
-    if_exists ~/.Xresources
-    ln -s $pwd/.Xresources ~/.Xresources
-    
-    if_exists ~/.Xdefaults
-    ln -s $pwd/.Xresources ~/.Xdefaults
-    
-    if_exists ~/.config/i3/config
-    ln -s $pwd/.config/i3/config ~/.config/i3/config
-    
-    if_exists ~/.config/i3status/config
-    ln -s $pwd/.config/i3status/config ~/.config/i3status/config;;
+link_zsh() {
+  echo "Installing zsh links"
+  if_exists ~/.zshrc
+  ln -s $pwd/.zshrc ~/.zshrc
+  
+  if_exists ~/.zsh
+  ln -s $pwd/.zsh ~/.zsh
+}
 
-  "vim")
-    echo "Installing vim links"
-    if_exists ~/.vimrc
-    ln -s $pwd/.vimrc ~/.vimrc;;
-
-  "zsh")
-    echo "Installing zsh links"
-    if_exists ~/.zshrc
-    ln -s $pwd/.zshrc ~/.zshrc
+link_xorg() {
+  echo "Installing Xorg links"
+  if_exists ~/.Xresources
+  ln -s $pwd/.Xresources ~/.Xresources
+  
+  if_exists ~/.Xdefaults
+  ln -s $pwd/.Xresources ~/.Xdefaults
+}
+link_i3() {
+  echo "Installing i3 links"
+  if_exists ~/.config/i3/config
+  ln -s $pwd/.config/i3/config ~/.config/i3/config
     
-    if_exists ~/.zsh
-    ln -s $pwd/.zsh ~/.zsh;;
+  if_exists ~/.config/i3status/config
+  ln -s $pwd/.config/i3status/config ~/.config/i3status/config
+}
 
-  "xorg")
-    echo "Installing Xorg links"
-    if_exists ~/.Xresources
-    ln -s $pwd/.Xresources ~/.Xresources
-    
-    if_exists ~/.Xdefaults
-    ln -s $pwd/.Xresources ~/.Xdefaults;;
-
-  "i3")
-    echo "Installing i3 links"
-    if_exists ~/.config/i3/config
-    ln -s $pwd/.config/i3/config ~/.config/i3/config
-    
-    if_exists ~/.config/i3status/config
-    ln -s $pwd/.config/i3status/config ~/.config/i3status/config;;
-esac
+TYPE=$(gum choose --no-limit "vim" "zsh" "xorg" "i3")
+grep -q "vim" <<< "$TYPE" && link_vim
+grep -q "zsh" <<< "$TYPE" && link_zsh
+grep -q "xorg" <<< "$TYPE" && link_xorg
+grep -q "i3" <<< "$TYPE" && link_i3
 
 echo "Done :)"
