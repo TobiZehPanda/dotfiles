@@ -31,9 +31,6 @@ link_tmux() {
   echo "Installing tmux links"
   if_exists ~/.tmux.conf
   ln -s $pwd/.tmux.conf ~/.tmux.conf  
-
-  if_exists ~/.tmux
-  ln -s $pwd/.tmux ~/.tmux 
 }
 
 link_xorg() {
