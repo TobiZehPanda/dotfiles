@@ -27,6 +27,15 @@ link_zsh() {
   ln -s $pwd/.zsh ~/.zsh
 }
 
+link_tmux() {
+  echo "Installing tmux links"
+  if_exists ~/.tmux.conf
+  ln -s $pwd/.tmux.conf ~/.tmux.conf  
+
+  if_exists ~/.tmux
+  ln -s $pwd/.tmux ~/.tmux 
+}
+
 link_xorg() {
   echo "Installing Xorg links"
   if_exists ~/.Xresources
@@ -51,9 +60,10 @@ else
   sudo pacman -S --noconfirm gum
 fi
 
-TYPE=$(gum choose --no-limit "vim" "zsh" "xorg" "i3")
+TYPE=$(gum choose --no-limit "vim" "zsh" "tmux" "xorg" "i3")
 grep -q "vim" <<< "$TYPE" && link_vim
 grep -q "zsh" <<< "$TYPE" && link_zsh
+grep -q "tmux" <<< "$TYPE" && link_tmux
 grep -q "xorg" <<< "$TYPE" && link_xorg
 grep -q "i3" <<< "$TYPE" && link_i3
 
