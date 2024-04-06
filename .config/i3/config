@@ -153,7 +153,7 @@ set $crust     #11111b
 # Class                 border          backgr      text        indic
 client.focused          $green         $green       $text       $red
 client.focused_inactive $peach         $peach       $text
-client.unfocused        $teal          $teal        $text
+client.unfocused        $peach         $peach       $text
 client.urgent           $red           $red         $red
 client.placeholder      $blue          $blue        $text
 

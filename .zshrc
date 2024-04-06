@@ -21,6 +21,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color'
 alias ip='ip -color=auto'
 alias public_ip='curl --ipv4 ifconfig.me'
+alias aria2c='aria2c -s16 -x16'
 alias tb="nc termbin.com 9999"
 
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
