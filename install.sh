@@ -31,12 +31,15 @@ link_tmux() {
   echo "Installing tmux links"
   if_exists ~/.tmux.conf
   ln -s $pwd/.tmux.conf ~/.tmux.conf  
+
+  if_exists ~/.tmux
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 }
 
 link_xorg() {
   echo "Installing Xorg links"
   if_exists ~/.Xresources
-  ln -s $pwd/.Xresources ~/.Xresources
+  cp $pwd/.Xresources ~/.Xresources
   
   if_exists ~/.Xdefaults
   ln -s $pwd/.Xresources ~/.Xdefaults

@@ -36,10 +36,10 @@ URxvt.color7: #BAC2DE
 URxvt.color15: #A6ADC8
 
 !! URxvt Appearance
-URxvt.font: xft:Comic Code:size=14
-URxvt.boldFont: xft:Comic Code:size=14:style=bold
-URxvt.italicFont:  xft:Comic Code:size=14:style=italic
-URxvt.boldItalicfont:  xft:Comic Code:size=14:style=bold italic
+URxvt.font: xft:Comic Code:size=9
+URxvt.boldFont: xft:Comic Code:size=9:style=bold
+URxvt.italicFont:  xft:Comic Code:size=9:style=italic
+URxvt.boldItalicfont:  xft:Comic Code:size=9:style=bold italic
 URxvt.letterSpace: 0
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
