@@ -10,9 +10,6 @@ set hlsearch
 set backupcopy=yes
 syntax enable
 
-let mapleader = ','
-
-
 " Install vim-plug if not found
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -77,8 +74,6 @@ let b:ale_linters = 'all'
 
 let g:rustfmt_autosave = 1
 let g:rust_recommended_style = 0
-
-let g:user_emmet_leader_key=','
 
 let g:airline_theme = 'catppuccin_mocha'
 
