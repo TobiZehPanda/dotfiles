@@ -32,20 +32,18 @@ window#waybar {
 
 #tray,
 #mpd,
-#custom-weather,
 #cpu, 
 #temperature, 
 #memory,
 #sway-mode,
 #backlight, 
 #pulseaudio, 
-#custom-vpn,
 #disk,
-#custom-recorder,
-#custom-audiorec,
 #battery, 
 #clock, 
-#network {
+#network,
+#custom-internal_ip,
+#custom-external_ip{
 	padding: 0 10px;
 }
 
