@@ -44,6 +44,7 @@ link_xorg() {
   if_exists ~/.Xdefaults
   ln -s $pwd/.Xresources ~/.Xdefaults
 }
+
 link_i3() {
   echo "Installing i3 links"
   if_exists ~/.config/i3/config
@@ -53,6 +54,23 @@ link_i3() {
   ln -s $pwd/.config/i3status/config ~/.config/i3status/config
 }
 
+link_rofi() {
+  echo "Installing rofi links"
+  if_exists ~/.config/rofi
+  ln -s $pwd/.config/rofi ~/.config/rofi
+}
+
+link_waybar() {
+  echo "Installing waybar links"
+  if_exists ~/.config/waybar
+  ln -s $pwd/.config/waybar ~/.config/waybar
+}
+
+link_hyprland() {
+  echo "Installing hyprland links"
+  if_exists ~/.config/hypr
+  ln -s $pwd/.config/hypr ~/.config/hypr
+}
 if pacman -Qi gum > /dev/null; then
   echo "Gum is installed"
 else
@@ -60,11 +78,14 @@ else
   sudo pacman -S --noconfirm gum
 fi
 
-TYPE=$(gum choose --no-limit "vim" "zsh" "tmux" "xorg" "i3")
+TYPE=$(gum choose --no-limit "hyprland" "i3" "rofi" "tmux" "vim" "waybar" "xorg" "zsh")
 grep -q "vim" <<< "$TYPE" && link_vim
 grep -q "zsh" <<< "$TYPE" && link_zsh
 grep -q "tmux" <<< "$TYPE" && link_tmux
 grep -q "xorg" <<< "$TYPE" && link_xorg
 grep -q "i3" <<< "$TYPE" && link_i3
+grep -q "rofi" <<< "$TYPE" && link_rofi
+grep -q "waybar" <<< "$TYPE" && link_waybar
+grep -q "hyprland" <<< "$TYPE" && link_hyprland
 
 echo "Done :)"
