@@ -71,6 +71,13 @@ link_hyprland() {
   if_exists ~/.config/hypr
   ln -s $pwd/.config/hypr ~/.config/hypr
 }
+
+link_dunst() {
+  echo "Installing dunst links"
+  if_exists ~/.config/dunst
+  ln -s $pwd/.config/dunst ~/.config/dunst
+}
+
 if pacman -Qi gum > /dev/null; then
   echo "Gum is installed"
 else
@@ -78,7 +85,7 @@ else
   sudo pacman -S --noconfirm gum
 fi
 
-TYPE=$(gum choose --no-limit "hyprland" "i3" "rofi" "tmux" "vim" "waybar" "xorg" "zsh")
+TYPE=$(gum choose --no-limit "dunst" "hyprland" "i3" "rofi" "tmux" "vim" "waybar" "xorg" "zsh")
 grep -q "vim" <<< "$TYPE" && link_vim
 grep -q "zsh" <<< "$TYPE" && link_zsh
 grep -q "tmux" <<< "$TYPE" && link_tmux
@@ -87,5 +94,6 @@ grep -q "i3" <<< "$TYPE" && link_i3
 grep -q "rofi" <<< "$TYPE" && link_rofi
 grep -q "waybar" <<< "$TYPE" && link_waybar
 grep -q "hyprland" <<< "$TYPE" && link_hyprland
+grep -q "dunst" <<< "$TYPE" && link_dunst
 
 echo "Done :)"
