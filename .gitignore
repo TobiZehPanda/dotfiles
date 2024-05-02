@@ -1,3 +1,4 @@
 .vim/
 monitor.conf
 windowrules.conf
+startup.conf
