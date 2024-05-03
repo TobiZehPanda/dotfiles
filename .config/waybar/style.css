@@ -40,7 +40,7 @@ window#waybar {
 
 #clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-external_ip, #tray, #mode {
     padding: 0 3px;
-    margin: 0 2px;
+    margin: 0 5px;
 }
 
 #network, #custom-external_ip {
