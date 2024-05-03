@@ -1,111 +1,81 @@
 {
-"layer": "top",
-"position": "top",
-"height": 10,
-"margin-bottom":0,
-"margin-top":0,
-
-"modules-left": ["sway/mode","cpu","memory","network","custom/internal_ip","custom/external_ip"],
-"modules-center": ["sway/workspaces","hyprland/workspaces"],
-"modules-right":  ["tray","idle_inhibitor","pulseaudio","backlight","battery","clock"],
-
-"battery": {
-  "states": {
-  "warning": 30,
-  "critical": 15
-  },
-  "format": "{icon}&#8239;{capacity}%",
-  "format-charging": "&#8239;{capacity}%",
-  "format-plugged": "&#8239;{capacity}%",
-  "format-alt": "{icon} {time}",
-  "format-icons": ["", "", "", "", "", "", ""]
-},
-"hyprland/workspaces": {
-     "sort-by-name": true,
-     "on-click": "activate"
-},
-"hyprland/window": {
-    "max-length": 200,
-    "separate-outputs": true
-},
-"sway/mode": {
-    "format": "<span style=\"italic\">{}</span>"
-},
-"tray": {
-    "icon-size": 16,
-    "spacing": 6
-},
-"clock": {
-    "locale": "C", 
-    "format": " {:%R}",
-    "format-alt": " {:%a,%b %d}" // Icon: calendar-alt
-},
-"cpu": {
-    "format": "&#8239;{usage}%",
-    "tooltip": false,
-    "on-click": "kitty -e 'htop'"
-},
-"memory": {
-    "interval": 30,
-    "format": " {used:0.2f}GB",
-    "max-length": 10,
-    "tooltip": false,
-    "warning": 70,
-    "critical": 90
-},
-"network": {
-  "interval": 2,
-  "format-wifi": " {signalStrength}%",
-  "format-ethernet": "",
-  "format-linked": " {ipaddr}",
-  "format-disconnected": " Disconnected",
-  "format-disabled": "",
-  "tooltip": false,
-  "max-length": 20,
-  "min-length": 6,
-  "format-alt": "{essid}",
-},
-"idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-        "activated": "",
-        "deactivated": ""
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar at the bottom of your screen
+    "height": 24, // Waybar height
+    // "width": 1366, // Waybar width
+    // Choose the order of the modules
+    "modules-left": ["sway/workspaces", "sway/mode", "cpu", "memory"],
+    "modules-center": ["sway/window"],
+    "modules-right": ["pulseaudio", "network", "custom/external_ip", "battery", "tray", "clock"],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "format": "{icon}",
+        "format-icons": {
+            "1:web": "",
+            "2:code": "",
+            "3:term": "",
+            "4:work": "",
+            "5:music": "",
+            "6:docs": "",
+            "urgent": "",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "clock": {
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": "{usage}% "
+    },
+    "memory": {
+        "format": "{}% "
+    },
+    "battery": {
+        //"bat": "BAT0",
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "network": {
+        // "interface": "wlp2s0", // (Optional) To force the use of this interface
+        "format-wifi": "{essid} ({signalStrength}%): {ipaddr}/{cidr} ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "Disconnected ⚠"
+    },
+    "pulseaudio": {
+        //"scroll-step": 1,
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": "",
+        "format-icons": {
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/external_ip": {
+        "format": "{}",
+        "interval": 30,
+        "exec": "curl --ipv4 ifconfig.me",
     }
-},
-"backlight": {
-    // "device": "acpi_video1",
-    "format": "{icon}&#8239;{percent}%",
-    "format-icons": ["", ""],
-    "on-scroll-down": "brightnessctl -c backlight set 1%-",
-    "on-scroll-up": "brightnessctl -c backlight set +1%"
-},
-"pulseaudio": {
-  // "scroll-step": 1, // %, can be a float
-  "format": "{icon} {volume}% {format_source}",
-  "format-bluetooth": "{icon} {volume}% {format_source}",
-  "format-bluetooth-muted": " {format_source}",
-  "format-muted": "  {format_source}",
-  "format-source": " {volume}%",
-  "format-source-muted": "",
-  "format-icons": {
-    "headphone": "",
-    "hands-free": "",
-    "headset": "🎧",
-    "phone": "",
-    "portable": "",
-    "car": "",
-    "default": ["", "", ""]
-  },
-  "on-click": "pavucontrol"
-},
-"custom/internal_ip": {
-  "format": "{}",
-  "exec": "ip route get 1.2.3.4 | awk '{print $7}'",
-  "interval": 30
-},
-"custom/external_ip": {
-  "format": "{}",
-  "exec": "curl --ipv4 ifconfig.me",
-  "interval": 30
-},
 }

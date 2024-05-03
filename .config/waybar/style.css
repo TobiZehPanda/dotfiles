@@ -1,49 +1,101 @@
-*{
-    font-family: JetBrainsMono;
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Ubuntu Nerd Font";
     font-size: 13px;
     min-height: 0;
-    color: white;
 }
 
 window#waybar {
-    background-color: #2d2d2d;
+    background: #2d2d2d;
+    color: white;
 }
 
-#workspaces{
-    margin-top: 3px;
-    margin-bottom: 2px;
-    margin-right: 10px;
-    margin-left: 25px;
+#window {
+    font-weight: bold;
+    font-family: "Ubuntu";
+}
+/*
+#workspaces {
+    padding: 0 5px;
+}
+*/
+
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: white;
+    border-top: 2px solid transparent;
 }
 
-#workspaces button{
-    border-radius: 15px;
-    margin-right: 10px;
-    padding: 1px 10px;
-    font-weight: bolder;
-    background-color: #181818;
+#workspaces button.focused {
+    color: #c9545d;
+    border-top: 2px solid #c9545d;
 }
 
-#workspaces button.active, #workspaces button.focused{
-    padding: 0 22px;
-    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;    
-    background: #7C9D96;
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
 }
 
-#tray,
-#mpd,
-#cpu, 
-#temperature, 
-#memory,
-#sway-mode,
-#backlight, 
-#pulseaudio, 
-#disk,
-#battery, 
-#clock, 
-#network,
-#custom-internal_ip,
-#custom-external_ip{
-	padding: 0 10px;
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-external_ip, #tray, #mode {
+    padding: 0 3px;
+    margin: 0 2px;
+}
+
+#clock {
+    font-weight: bold;
+}
+
+#battery {
+}
+
+#battery icon {
+    color: red;
+}
+
+#battery.charging {
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#battery.warning:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+}
+
+#memory {
+}
+
+#network {
+}
+
+#network.disconnected {
+    background: #f53c3c;
+}
+
+#pulseaudio {
+}
+
+#pulseaudio.muted {
+}
+
+#custom-spotify {
+    color: rgb(102, 220, 105);
+}
+
+#tray {
 }
 
