@@ -43,8 +43,12 @@ window#waybar {
     margin: 0 5px;
 }
 
-#network, #custom-external_ip {
+#network {
   color: #aaf0d1;
+}
+
+#custom-external_ip {
+  color: #fab387;
 }
 
 #clock {
