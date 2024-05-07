@@ -32,7 +32,7 @@
         },
         "format": "{capacity}% {icon}",
         "format-icons": ["", "", "", "", ""],
-        "format-charging": "{capacity}% {icon} ",
+        "format-charging": "*{capacity}% {icon}",
     },
     "network": {
         // "interface": "wlp2s0", // (Optional) To force the use of this interface
