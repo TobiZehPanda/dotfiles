@@ -78,10 +78,10 @@ link_dunst() {
   ln -s $pwd/.config/dunst ~/.config/dunst
 }
 
-link_swaylock() {
-  echo "installing swaylock links"
-  if_exists ~/.swaylock
-  ln -s $pwd/.swaylock ~/.swaylock
+link_kitty() {
+  echo "installing kitty links"
+  if_exists ~/.config/kitty
+  ln -s $pwd/.config/kitty ~/.config/kitty
 }
 
 
@@ -92,7 +92,7 @@ else
   sudo pacman -S --noconfirm gum
 fi
 
-TYPE=$(gum choose --no-limit "dunst" "hyprland" "i3" "rofi" "swaylock" "tmux" "vim" "waybar" "xorg" "zsh")
+TYPE=$(gum choose --no-limit "dunst" "hyprland" "i3" "rofi" "tmux" "kitty" "vim" "waybar" "xorg" "zsh")
 grep -q "vim" <<< "$TYPE" && link_vim
 grep -q "zsh" <<< "$TYPE" && link_zsh
 grep -q "tmux" <<< "$TYPE" && link_tmux
@@ -102,6 +102,6 @@ grep -q "rofi" <<< "$TYPE" && link_rofi
 grep -q "waybar" <<< "$TYPE" && link_waybar
 grep -q "hyprland" <<< "$TYPE" && link_hyprland
 grep -q "dunst" <<< "$TYPE" && link_dunst
-grep -q "swaylock" <<< "$TYPE" && link_swaylock
+grep -q "kitty" <<< "$TYPE" && link_kitty
 
 echo "Done :)"
