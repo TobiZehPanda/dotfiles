@@ -22,6 +22,11 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
 
+let g:polyglot_disabled = ['autoindent']
+let g:python_recommended_style = 0
+autocmd BufEnter *.py colorscheme default
+autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
+
 call plug#begin()
 
 Plug 'gabrielelana/vim-markdown'
@@ -54,8 +59,6 @@ Plug 'rsaraf/vim-advanced-lint'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
-
-autocmd BufEnter *.py colorscheme default
 
 set nocompatible
 set completeopt=menu,menuone,preview,noselect,noinsert
