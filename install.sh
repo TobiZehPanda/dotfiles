@@ -84,6 +84,12 @@ link_kitty() {
   ln -s $pwd/.config/kitty ~/.config/kitty
 }
 
+link_pylint() {
+  echo "installing pylint links"
+  if_exists ~/.pylintrc
+  ln -s $pwd/.pylintrc ~/.pylintrc
+}
+
 
 if pacman -Qi gum > /dev/null; then
   echo "Gum is installed"
@@ -92,7 +98,7 @@ else
   sudo pacman -S --noconfirm gum
 fi
 
-TYPE=$(gum choose --no-limit "dunst" "hyprland" "i3" "rofi" "tmux" "kitty" "vim" "waybar" "xorg" "zsh")
+TYPE=$(gum choose --no-limit "dunst" "hyprland" "i3" "pylint" "rofi" "tmux" "kitty" "vim" "waybar" "xorg" "zsh")
 grep -q "vim" <<< "$TYPE" && link_vim
 grep -q "zsh" <<< "$TYPE" && link_zsh
 grep -q "tmux" <<< "$TYPE" && link_tmux
@@ -103,5 +109,6 @@ grep -q "waybar" <<< "$TYPE" && link_waybar
 grep -q "hyprland" <<< "$TYPE" && link_hyprland
 grep -q "dunst" <<< "$TYPE" && link_dunst
 grep -q "kitty" <<< "$TYPE" && link_kitty
+grep -q "pylint" <<< "$TYPE" && link_pylint
 
 echo "Done :)"
