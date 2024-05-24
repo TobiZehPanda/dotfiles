@@ -63,7 +63,7 @@ with tab1:
   if button and app_config:
     st.success("Installing configs....")
     for app in app_config:
-      app_install = df[df['name'].str.match(app)]
+      app_install = dataframe[dataframe['name'].str.match(app)]
       install(app_install)
 
 with tab2:
