@@ -64,6 +64,8 @@ set nocompatible
 set completeopt=menu,menuone,preview,noselect,noinsert
 filetype plugin indent on
 
+nnoremap <silent> <C-f> :Files<CR>
+
 let g:markdown_include_jekyll_support = 1
 let g:markdown_enable_folding = 0
 let g:markdown_enable_conceal = 1

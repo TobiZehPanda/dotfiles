@@ -1,0 +1,12 @@
+name,src,dest,src2,dest2
+dunst,.config/dunst,~/.config/dunst,nan,nan
+hyprland,.config/hypr,~/.config/hypr,nan,nan
+i3,.config/i3/config,~/.config/i3/config,nan,nan
+pylint,.pylintrc,~/.pylintrc,nan,nan
+rofi,.config/rofi,~/.config/rofi,nan,nan
+tmux,.tmux.conf,~/.tmux.conf,nan,nan
+kitty,.config/kitty,~/.config/kitty,nan,nan
+vim,.vimrc,~/.vimrc,nan,nan
+waybar,.config/waybar,~/.config/waybar,nan,nan
+xorg,.Xresources,~/.Xresources,.Xresources,~/.Xdefaults
+zsh,.zshrc,~/.zshrc,.zsh,~/.zsh
