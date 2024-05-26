@@ -8,7 +8,7 @@ def absolute_path(path):
   return os.path.abspath(os.path.expanduser(os.path.expandvars(path)))
 
 def add_config(name, src, dest, *argv):
-  if not argv[0]:
+  if not argv[0] and not argv[1]:
     data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "extra":[False], "src2":[argv[0]], "dest2":[argv[1]]})
   else:
     data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "extra":[True], "src2":[argv[0]], "dest2":[argv[1]]})
