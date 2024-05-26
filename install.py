@@ -43,21 +43,21 @@ def install(app_data):
   if os.path.islink(absolute_path(app_data['dest'].to_string(index=False))):
     st.warning("Link found. Removing!")
     os.unlink(absolute_path(app_data['dest'].to_string(index=False)))
-    if not app_install.isnull().values.any():
+    if app_install['extra'].bool() and os.path.islink(absolute_path(app_data['dest2'].to_string(index=False))):
       os.unlink(absolute_path(app_data['dest2'].to_string(index=False)))
   elif os.path.isfile(absolute_path(app_data['dest'].to_string(index=False))):
     st.warning("File found. Removing!")
     os.remove(absolute_path(app_data['dest'].to_string(index=False)))
-    if not app_install.isnull().values.any():
+    if app_install['extra'].bool() and os.path.isfile(absolute_path(app_data['dest2'].to_string(index=False))):
       os.remove(absolute_path(app_data['dest2'].to_string(index=False)))
   elif os.path.isdir(absolute_path(app_data['dest'].to_string(index=False))):
     st.warning("Directory found. Removing!")
     os.rmdir(absolute_path(app_data['dest'].to_string(index=False)))
-    if not app_install.isnull().values.any():
+    if app_install['extra'].bool() and os.path.isdir(absolute_path(app_data['dest2'].to_string(index=False))):
       os.rmdir(absolute_path(app_data['dest22'].to_string(index=False)))
   st.info(f"Installing {app_data['name'].to_string(index=False)} links!")
   os.symlink(absolute_path(app_data['src'].to_string(index=False)), absolute_path(app_data['dest'].to_string(index=False)))
-  if not app_install.isnull().values.any():
+  if app_install['extra'].bool():
     os.symlink(absolute_path(app_data['src2'].to_string(index=False)), absolute_path(app_data['dest2'].to_string(index=False)))
 
 tab1, tab2, tab3 = st.tabs(["Install Configs", "Add/Edit", "Delete"])

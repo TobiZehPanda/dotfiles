@@ -22,7 +22,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
 
-let g:polyglot_disabled = ['autoindent']
+let g:polyglot_disabled = ['autoindent', 'markdown']
 let g:python_recommended_style = 0
 autocmd BufEnter *.py colorscheme default
 autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
