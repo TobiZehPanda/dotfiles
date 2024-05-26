@@ -2,13 +2,16 @@ import os
 import streamlit as st
 import pandas as pd
 
-FILE = "configurations.cvs"
+FILE = "configurations.csv"
 
 def absolute_path(path):
   return os.path.abspath(os.path.expanduser(os.path.expandvars(path)))
 
 def add_config(name, src, dest, *argv):
-  data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "src2":[argv[0]], "dest2":[argv[1]]})
+  if not argv[0]:
+    data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "extra":[False], "src2":[argv[0]], "dest2":[argv[1]]})
+  else:
+    data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "extra":[True], "src2":[argv[0]], "dest2":[argv[1]]})
   data.to_csv(FILE, mode="a", index=False, header=False)
 
 def delete_config(index):
@@ -18,16 +21,21 @@ def delete_config(index):
 def edit_config():
   if not os.path.isfile(FILE):
     with open(FILE, "w", encoding="UTF-8") as f:
-      f.write("name,src,dest,src2,dest2\n")
+      f.write("name,src,dest,extra,src2,dest2\n")
   df = pd.read_csv(FILE)
-  df = df.astype(str)
+  df['name'] = df['name'].astype(str)
+  df['src'] = df['src'].astype(str)
+  df['dest'] = df['dest'].astype(str)
+  df['src2'] = df['src2'].astype(str)
+  df['dest2'] = df['dest2'].astype(str)
+  df['extra'] = df['extra'].astype(bool)
   update_df = st.data_editor(df, use_container_width=True)
   update_df.to_csv(FILE, mode="w", index=False, header=True)
 
 def show_config():
   if not os.path.isfile(FILE):
     with open(FILE, "w", encoding="UTF-8") as f:
-      f.write("name,src,dest,src2,dest2\n")
+      f.write("name,src,dest,extra,src2,dest2\n")
   df = pd.read_csv(FILE)
   st.dataframe(df, use_container_width=True)
 
