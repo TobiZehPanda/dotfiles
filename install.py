@@ -73,6 +73,7 @@ with tab1:
     for app in app_config:
       app_install = dataframe[dataframe['name'].str.match(app)]
       install(app_install)
+    st.success("Done! :3")
 
 with tab2:
   edit_config()
