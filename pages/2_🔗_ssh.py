@@ -6,7 +6,7 @@ from streamlit_extras.grid import grid
 
 st.set_page_config(
   page_title="SSH",
-  page_icon="🖥️"
+  page_icon="🔗"
 )
 
 def absolute_path(path):

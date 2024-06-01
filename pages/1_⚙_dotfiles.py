@@ -6,7 +6,7 @@ import pandas as pd
 
 st.set_page_config(
   page_title="dotfiles",
-  page_icon="🔗"
+  page_icon="⚙️"
 )
 
 FILE = "configurations.csv"

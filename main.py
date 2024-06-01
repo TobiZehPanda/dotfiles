@@ -4,7 +4,7 @@ from streamlit_extras.badges import badge
 
 st.set_page_config(
   page_title="Hello",
-  page_icon="👋"
+  page_icon="❤️"
 )
 
 st.markdown(
