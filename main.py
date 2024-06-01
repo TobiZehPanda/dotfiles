@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+from streamlit_extras.badges import badge
 
 st.set_page_config(
   page_title="Hello",
@@ -12,6 +13,8 @@ st.markdown(
   I created this to help configure **Linux**!
   """
 )
+badge(type="github", name="TobiZehPanda/dotfiles")
+
 st.divider()
 st.markdown(
   """

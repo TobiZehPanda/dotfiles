@@ -1,6 +1,7 @@
 import os
 import time
 import streamlit as st
+from streamlit_extras.grid import grid
 import pandas as pd
 
 st.set_page_config(
@@ -129,12 +130,13 @@ with tab2:
 with tab3:
   edit_config()
   with st.form("add", clear_on_submit=True):
-    st_name = st.text_input("Name:")
-    st_src = st.text_input("Source:")
-    st_dest = st.text_input("Destination:")
-    st_src2 = st.text_input("Source 2:")
-    st_dest2 = st.text_input("Destination 2:")
-    submit = st.form_submit_button("Add")
+    st_grid = grid(1, 2, 2)
+    st_name = st_grid.text_input("Name:")
+    st_src = st_grid.text_input("Source:")
+    st_dest = st_grid.text_input("Destination:")
+    st_src2 = st_grid.text_input("Source 2:")
+    st_dest2 = st_grid.text_input("Destination 2:")
+    submit = st_grid.form_submit_button("Add")
     if submit:
       add_config(st_name, st_src, st_dest, st_src2, st_dest2)
       st.rerun()
