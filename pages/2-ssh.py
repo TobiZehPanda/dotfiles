@@ -52,8 +52,10 @@ def parse_file(filepath):
   return df
 
 def write_data(df):
+  df.index = range(len(df))
   with open(FILE, 'w', encoding='UTF-8') as f:
     for counter in range(0, len(df.index)):
+      st.write(df.loc[counter])
       for key, value in zip(df.columns.tolist(), df.loc[counter].tolist()):
         if not pd.isnull(value):
           f.write(f"{key} {value}\n")
@@ -63,6 +65,7 @@ def write_data(df):
       f.write("\n")
 
 FILE = absolute_path("~/.ssh/config")
+DIR = absolute_path("~/.ssh")
 rx_dict = {
   'host': re.compile(r'Host (?P<host>.*)\n'),
   'hostname': re.compile(r'HostName (?P<hostname>.*)\n'),
@@ -72,6 +75,11 @@ rx_dict = {
   'log': re.compile(r'LogLevel (?P<log>.*)\n'),
   'compression': re.compile(r'Compression (?P<compression>.*)\n')
 }
+
+if not os.path.exists(DIR):
+  os.mkdir(DIR)
+if not os.path.exists(FILE):
+  open(FILE, 'a').close()
 
 tab1, tab2, tab3 = st.tabs(['Show', 'Add', 'Delete'])
 
@@ -84,12 +92,19 @@ with tab1:
 
 with tab2:
   data = parse_file(FILE)
-  data = st.data_editor(data, use_container_width=True, hide_index=True)
-  data = data.replace([''], [None])
-  write_data(data)
-  add = st.button("Add")
-  if add:
-    data.loc[len(data.index)] = ['TEMP', None, None, None, None, None, None]
+  with st.form("add", clear_on_submit=True):
+    st_host = st.text_input("Name")
+    st_hostname = st.text_input("Hostname")
+    st_user = st.text_input("User")
+    st_port = st.text_input("Port")
+    st_identity = st.text_input("Identity Path")
+    st_log = st.selectbox("Log Level", ("", "INFO", "VERBOSE"))
+    st_compression = st.selectbox("Compression", ("", "Yes", "No"))
+    st_add = st.form_submit_button("Add")
+
+  if st_add:
+    data.loc[len(data.index)] = [st_host, st_hostname, st_user, st_port, st_identity, st_log, st_compression]
+    data = data.replace([''], [None])
     write_data(data)
     st.rerun()
 
@@ -103,4 +118,3 @@ with tab3:
       data = data.drop([int(delete_input)])
       write_data(data)
       st.rerun()
-
