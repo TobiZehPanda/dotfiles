@@ -21,7 +21,7 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-  for var in [ "DISPLAY", "EDITOR", "HOME", "HOSTNAME", "LANG", "SHELL"]:
+  for var in [ "DISPLAY", "EDITOR", "HISTFILE", "HOME", "LANG", "SHELL"]:
     if var in os.environ:
       st.write(f"{var}: :orange[{os.environ[var]}]")
 
