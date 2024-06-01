@@ -3,6 +3,11 @@ import time
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(
+  page_title="dotfiles",
+  page_icon="🔗"
+)
+
 FILE = "configurations.csv"
 
 def absolute_path(path):
