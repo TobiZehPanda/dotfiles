@@ -21,10 +21,12 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-  for var in [ "DISPLAY", "EDITOR", "HOME", "LANG", "SHELL"]:
-    st.write(f"{var}: :orange[{os.environ[var]}]")
+  for var in [ "DISPLAY", "EDITOR", "HOME", "HOSTNAME", "LANG", "SHELL"]:
+    if var in os.environ:
+      st.write(f"{var}: :orange[{os.environ[var]}]")
 
 with col2:
-  for var in ["TERM", "XDG_SESSION_TYPE", "XDG_BACKEND", "XDG_CURRENT_DESKTOP", "XDG_CONFIG_HOME"]:
-    st.write(f"{var}: :orange[{os.environ[var]}]")
+  for var in ["TERM", "USER", "XDG_SESSION_TYPE", "XDG_BACKEND", "XDG_CURRENT_DESKTOP", "XDG_CONFIG_HOME"]:
+    if var in os.environ:
+      st.write(f"{var}: :orange[{os.environ[var]}]")
 
