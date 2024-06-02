@@ -57,7 +57,7 @@ def edit_config():
   df['src2'] = df['src2'].astype(str)
   df['dest2'] = df['dest2'].astype(str)
   df['extra'] = df['extra'].astype(bool)
-  update_df = st.data_editor(df, use_container_width=True)
+  update_df = st.data_editor(df, use_container_width=True, hide_index=True)
   update_df.to_csv(FILE, mode="w", index=False, header=True)
 
 def install(app_data):
