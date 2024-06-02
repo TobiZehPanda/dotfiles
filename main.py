@@ -29,7 +29,7 @@ with col1:
       st.write(f"{var}: :orange[{os.environ[var]}]")
 
 with col2:
-  for var in ["TERM", "USER", "XDG_SESSION_TYPE", "XDG_BACKEND", "XDG_CURRENT_DESKTOP", "XDG_CONFIG_HOME"]:
+  for var in ["TERM", "USER", "XDG_BACKEND", "XDG_CONFIG_DIR", "XDG_CURRENT_DESKTOP", "XDG_SESSION_TYPE"]:
     if var in os.environ:
       st.write(f"{var}: :orange[{os.environ[var]}]")
 
