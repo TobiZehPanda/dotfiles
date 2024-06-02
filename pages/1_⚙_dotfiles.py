@@ -136,7 +136,7 @@ with tab3:
     st_dest = st_grid.text_input("Destination*:")
     st_src2 = st_grid.text_input("Source 2:")
     st_dest2 = st_grid.text_input("Destination 2:")
-    st_grid.caption(r':red[\* is required]')
+    st_grid.caption(r':red[_\* is required_]')
     submit = st_grid.form_submit_button("Add")
     if submit:
       if len(st_name) == 0:

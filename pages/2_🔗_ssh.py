@@ -102,7 +102,7 @@ with tab2:
     st_identity = st_grid.text_input("Identity Path")
     st_log = st_grid.selectbox("Log Level", ("", "INFO", "VERBOSE"))
     st_compression = st_grid.selectbox("Compression", ("", "Yes", "No"))
-    st_grid.caption(r':red[\* is required]')
+    st_grid.caption(r':red[_\* is required_]')
     st_add = st.form_submit_button("Add")
 
   if st_add:
