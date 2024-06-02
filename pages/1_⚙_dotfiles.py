@@ -131,13 +131,23 @@ with tab3:
   edit_config()
   with st.form("add", clear_on_submit=True):
     st_grid = grid(1, 2, 2)
-    st_name = st_grid.text_input("Name:")
-    st_src = st_grid.text_input("Source:")
-    st_dest = st_grid.text_input("Destination:")
+    st_name = st_grid.text_input("Name*:")
+    st_src = st_grid.text_input("Source*:")
+    st_dest = st_grid.text_input("Destination*:")
     st_src2 = st_grid.text_input("Source 2:")
     st_dest2 = st_grid.text_input("Destination 2:")
+    st_grid.caption(r':red[\* is required]')
     submit = st_grid.form_submit_button("Add")
     if submit:
+      if len(st_name) == 0:
+        st.error("Name is empty!")
+        st.stop()
+      if len(st_src) == 0:
+        st.error("Source is empty!")
+        st.stop()
+      if len(st_dest) == 0:
+        st.error("Destination is empty!")
+        st.stop()
       add_config(st_name, st_src, st_dest, st_src2, st_dest2)
       st.rerun()
 

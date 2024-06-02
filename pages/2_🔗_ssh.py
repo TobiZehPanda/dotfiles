@@ -95,16 +95,23 @@ with tab2:
   data = parse_file(FILE)
   with st.form("add", clear_on_submit=True):
     st_grid = grid(2, 2, 1, 2)
-    st_host = st_grid.text_input("Name")
-    st_hostname = st_grid.text_input("IP Address/Hostname")
+    st_host = st_grid.text_input("Name*")
+    st_hostname = st_grid.text_input("IP Address/Hostname*")
     st_user = st_grid.text_input("User")
     st_port = st_grid.text_input("Port")
     st_identity = st_grid.text_input("Identity Path")
     st_log = st_grid.selectbox("Log Level", ("", "INFO", "VERBOSE"))
     st_compression = st_grid.selectbox("Compression", ("", "Yes", "No"))
+    st_grid.caption(r':red[\* is required]')
     st_add = st.form_submit_button("Add")
 
   if st_add:
+    if len(st_host) == 0:
+      st.error("Name is required!")
+      st.stop()
+    if len(st_hostname) == 0:
+      st.error("IP/Hostname is required!")
+      st.stop()
     data.loc[len(data.index)] = [st_host, st_hostname, st_user, st_port, st_identity, st_log, st_compression]
     data = data.replace([''], [None])
     write_data(data.sort_values(by='Host'))
