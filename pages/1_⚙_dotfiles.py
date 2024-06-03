@@ -4,12 +4,12 @@ import streamlit as st
 from streamlit_extras.grid import grid
 import pandas as pd
 
+CONFIG = "configurations.csv"
+
 st.set_page_config(
   page_title="dotfiles",
   page_icon="⚙️"
 )
-
-FILE = "configurations.csv"
 
 def absolute_path(path):
   return os.path.abspath(os.path.expanduser(os.path.expandvars(path)))
@@ -19,7 +19,7 @@ def add_config(name, src, dest, *argv):
     data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "extra":[False], "src2":[argv[0]], "dest2":[argv[1]]})
   else:
     data = pd.DataFrame({"name": [name], "src": [src], "dest":[dest], "extra":[True], "src2":[argv[0]], "dest2":[argv[1]]})
-  data.to_csv(FILE, mode="a", index=False, header=False)
+  data.to_csv(CONFIG, mode="a", index=False, header=False)
 
 def check_exists(path):
   exist = False
@@ -43,14 +43,14 @@ def check_installed(app_names, app_data):
   return app_names, app_not_installed
 
 def delete_config(index):
-  df = pd.read_csv(FILE)
-  df.drop([index]).to_csv(FILE, mode="w", index=False, header=True)
+  df = pd.read_csv(CONFIG)
+  df.drop([index]).to_csv(CONFIG, mode="w", index=False, header=True)
 
 def edit_config():
-  if not os.path.isfile(FILE):
-    with open(FILE, "w", encoding="UTF-8") as f:
+  if not os.path.isfile(CONFIG):
+    with open(CONFIG, "w", encoding="UTF-8") as f:
       f.write("name,src,dest,extra,src2,dest2\n")
-  df = pd.read_csv(FILE)
+  df = pd.read_csv(CONFIG)
   df['name'] = df['name'].astype(str)
   df['src'] = df['src'].astype(str)
   df['dest'] = df['dest'].astype(str)
@@ -58,7 +58,7 @@ def edit_config():
   df['dest2'] = df['dest2'].astype(str)
   df['extra'] = df['extra'].astype(bool)
   update_df = st.data_editor(df, use_container_width=True, hide_index=True)
-  update_df.to_csv(FILE, mode="w", index=False, header=True)
+  update_df.to_csv(CONFIG, mode="w", index=False, header=True)
 
 def install(app_data):
   if os.path.islink(absolute_path(app_data['dest'].to_string(index=False))):
@@ -93,15 +93,15 @@ def remove(app_data):
     os.unlink(absolute_path(app_data['dest2'].to_string(index=False)))
 
 def show_config():
-  if not os.path.isfile(FILE):
-    with open(FILE, "w", encoding="UTF-8") as f:
+  if not os.path.isfile(CONFIG):
+    with open(CONFIG, "w", encoding="UTF-8") as f:
       f.write("name,src,dest,extra,src2,dest2\n")
-  df = pd.read_csv(FILE)
+  df = pd.read_csv(CONFIG)
   st.dataframe(df, use_container_width=True)
 tab1, tab2, tab3, tab4 = st.tabs(["Install Configs", "Remove Configs", "Add/Edit", "Delete"])
 
 with tab1:
-  dataframe = pd.read_csv(FILE)
+  dataframe = pd.read_csv(CONFIG)
   app_list, app_not_installed_list = check_installed(dataframe['name'].tolist(), dataframe)
   app_config = st.multiselect('Choose configs to systemlink:', app_list)
   button = st.button('Submit')
