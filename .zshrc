@@ -11,17 +11,16 @@ PROMPT='%(!.%F{red}.%F{green})%n%f%F{white}@%f%F{cyan}%m%f %F{blue}%~%f %F{red}$
 source ~/.repos/znap/znap.zsh
 znap source marlonrichert/zsh-autocomplete
 
-export PATH=$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH
 export EDITOR=vim
 export PF_ASCII="Catppuccin"
 export PF_COL3=1
 export PASTEL_COLOR_MODE=24bit
-export QT_QPA_PLATFORMTHEME=gtk2
 
 alias ls='ls --color=auto'
 alias grep='grep --color'
 alias ip='ip -color=auto'
 alias public_ip='curl --ipv4 ifconfig.me'
+alias public_ip6='curl --ipv6 ifconfig.me'
 alias aria2c='aria2c -s16 -x16'
 alias tb="nc termbin.com 9999"
 
