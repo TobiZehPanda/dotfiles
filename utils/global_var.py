@@ -1,0 +1,1 @@
+CONFIG = "configurations.csv"

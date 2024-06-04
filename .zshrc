@@ -16,6 +16,7 @@ export EDITOR=vim
 export PF_ASCII="Catppuccin"
 export PF_COL3=1
 export PASTEL_COLOR_MODE=24bit
+export QT_QPA_PLATFORMTHEME=gtk2
 
 alias ls='ls --color=auto'
 alias grep='grep --color'

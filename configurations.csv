@@ -1,11 +1,13 @@
 name,src,dest,extra,src2,dest2
+darkman,.config/darkman,~/.config/darkman,False,nan,nan
+darkman-folders,.local/share/dark-mode.d,~/.local/share/dark-mode.d,True,.local/share/light-mode.d,~/.local/share/light-mode.d
 dunst,.config/dunst,~/.config/dunst,False,nan,nan
 hyprland,.config/hypr,~/.config/hypr,False,nan,nan
 i3,.config/i3/config,~/.config/i3/config,False,nan,nan
+kitty,.config/kitty,~/.config/kitty,False,nan,nan
 pylint,.pylintrc,~/.pylintrc,False,nan,nan
 rofi,.config/rofi,~/.config/rofi,False,nan,nan
 tmux,.tmux.conf,~/.tmux.conf,False,nan,nan
-kitty,.config/kitty,~/.config/kitty,False,nan,nan
 vim,.vimrc,~/.vimrc,False,nan,nan
 waybar,.config/waybar,~/.config/waybar,False,nan,nan
 xorg,.Xresources,~/.Xresources,True,.Xresources,~/.Xdefaults
