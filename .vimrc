@@ -24,7 +24,8 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 let g:polyglot_disabled = ['autoindent', 'markdown']
 let g:python_recommended_style = 0
-autocmd BufEnter *.py colorscheme default
+autocmd BufEnter *.py colorscheme base16-3024
+autocmd BufEnter *.py highlight Normal guibg=NONE ctermbg=NONE
 autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 call plug#begin()
@@ -57,6 +58,7 @@ Plug 'tpope/vim-commentary'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'rsaraf/vim-advanced-lint'
 Plug 'sheerun/vim-polyglot'
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 
@@ -88,12 +90,13 @@ let g:airline_theme = 'catppuccin_mocha'
 
 au! cursormoved * call PoppyInit()
 
-hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
-hi ALEWarning cterm=underline ctermfg=red ctermbg=NONE
-
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 nmap <F8> :TagbarToggle<CR>
 map ; :Files<CR>
 
 colorscheme catppuccin_mocha
+autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
+
+hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
+hi ALEWarning cterm=underline ctermfg=red ctermbg=NONE

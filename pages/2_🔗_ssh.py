@@ -2,6 +2,7 @@ import re
 import os
 import sys
 import utils.global_var
+from utils.global_var import absolute_path
 import pandas as pd
 import streamlit as st
 from streamlit_extras.grid import grid
@@ -11,9 +12,6 @@ st.set_page_config(
   page_title="SSH",
   page_icon="🔗"
 )
-
-def absolute_path(path):
-  return os.path.abspath(os.path.expanduser(os.path.expandvars(path)))
 
 def parse_line(line):
   for key, rx in rx_dict.items():

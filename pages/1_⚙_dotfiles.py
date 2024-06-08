@@ -1,7 +1,7 @@
-import utils.global_var
 import os
-import sys
 import time
+import utils.global_var
+from utils.global_var import absolute_path
 import streamlit as st
 from streamlit_extras.grid import grid
 import pandas as pd
@@ -14,8 +14,6 @@ st.set_page_config(
   page_icon="⚙️"
 )
 
-def absolute_path(path):
-  return os.path.abspath(os.path.expanduser(os.path.expandvars(path)))
 
 def add_config(name, src, dest, *argv):
   if not argv[0] and not argv[1]:

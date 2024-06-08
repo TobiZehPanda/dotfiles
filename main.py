@@ -9,7 +9,7 @@ st.set_page_config(
 
 st.markdown(
   """
-  # 👋 Welcome to Tobi's Configurator 👋
+  # Welcome to Configurator-Inator
   I created this to help configure **Linux**!
   """
 )
