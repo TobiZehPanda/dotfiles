@@ -60,10 +60,10 @@ def write_data(df):
       st.write(df.loc[counter])
       for key, value in zip(df.columns.tolist(), df.loc[counter].tolist()):
         if not pd.isnull(value):
-          f.write(f"{key} {value}\n")
-
-        if re.search(r'.*', key):
-          f.write("\t")
+          if key == 'Host':
+            f.write(f"{key} {value}\n")
+          else:
+            f.write(f"\t{key} {value}\n")
       f.write("\n")
 
 FILE = absolute_path("~/.ssh/config")
