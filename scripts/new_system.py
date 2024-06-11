@@ -1,4 +1,5 @@
 import os
+import sys
 import argparse
 
 def parse_pacman():
@@ -10,7 +11,7 @@ def parse_pacman():
         data.insert(i, "Color\n")
       elif line.startswith("#Parallel"):
         data.pop(i)
-        data.insert(i, "Parallel Downloads = 5\nILoveCandy\n")
+        data.insert(i, "ParallelDownloads = 5\nILoveCandy\n")
 
   with open("/etc/pacman.conf", "w", encoding="UTF-8") as file:
     file.writelines(data)
@@ -37,7 +38,7 @@ if __name__ == '__main__':
   args = parser.parse_args()
 
   if os.geteuid() != 0:
-    exit("You need root privileges to run this script!")
+    sys.exit("You need root privileges to run this script!")
 
   os.system('timedatectl set-timezone America/Chicago')
   os.system('timedatectl set-ntp 1')

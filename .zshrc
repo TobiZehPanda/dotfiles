@@ -23,6 +23,7 @@ alias public_ip='curl --ipv4 ifconfig.me'
 alias public_ip6='curl --ipv6 ifconfig.me'
 alias aria2c='aria2c -s16 -x16'
 alias tb="nc termbin.com 9999"
+alias wg="sudo wg"
 
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
