@@ -55,7 +55,7 @@
             "default": ["", ""]
         },
         "on-click": "pavucontrol",
-        "ignored-sinks": ["Easy Effects Sink"],
+        "ignored-sinks": ["Easy Effects Sink", "Meteor condenser microphone Analog Stereo"],
     },
     "custom/external_ip": {
         "format": "{} 🌎",
