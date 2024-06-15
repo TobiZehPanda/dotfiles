@@ -5,7 +5,6 @@ from utils.global_var import absolute_path
 import streamlit as st
 from streamlit_extras.grid import grid
 import pandas as pd
-from loguru import logger
 
 CONFIG = utils.global_var.CONFIG
 

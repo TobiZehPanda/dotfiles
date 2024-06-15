@@ -6,7 +6,6 @@ from utils.global_var import absolute_path
 import pandas as pd
 import streamlit as st
 from streamlit_extras.grid import grid
-from loguru import logger
 
 st.set_page_config(
   page_title="SSH",
