@@ -61,36 +61,36 @@ def edit_config():
   update_df.to_csv(CONFIG, mode="w", index=False, header=True)
 
 def install(app_data):
-  if os.path.islink(absolute_path(app_data['dest'].to_string(index=False))):
-    st.warning(f"Link found at {app_data['dest'].to_string(index=False)}.. Removing!")
-    os.unlink(absolute_path(app_data['dest'].to_string(index=False)))
-    if app_install['extra'].item() and os.path.islink(absolute_path(app_data['dest2'].to_string(index=False))):
-      st.warning(f"Link found at {app_data['dest2'].to_string(index=False)}.. Removing!")
-      os.unlink(absolute_path(app_data['dest2'].to_string(index=False)))
-  elif os.path.isfile(absolute_path(app_data['dest'].to_string(index=False))):
-    st.warning(f"File found at {app_data['dest'].to_string(index=False)}.. Removing!")
-    os.remove(absolute_path(app_data['dest'].to_string(index=False)))
-    if app_install['extra'].item() and os.path.isfile(absolute_path(app_data['dest2'].to_string(index=False))):
-      st.warning(f"File found at {app_data['dest2'].to_string(index=False)}.. Removing!")
-      os.remove(absolute_path(app_data['dest2'].to_string(index=False)))
-  elif os.path.isdir(absolute_path(app_data['dest'].to_string(index=False))):
-    st.warning(f"Directory found at {app_data['dest'].to_string(index=False)}.. Removing!")
-    os.rmdir(absolute_path(app_data['dest'].to_string(index=False)))
-    if app_install['extra'].item() and os.path.isdir(absolute_path(app_data['dest2'].to_string(index=False))):
-      st.warning(f"Directory found at {app_data['dest2'].to_string(index=False)}.. Removing!")
-      os.rmdir(absolute_path(app_data['dest2'].to_string(index=False)))
-  st.info(f"Installing {app_data['name'].to_string(index=False)} links! ({app_data['dest'].to_string(index=False)})")
-  os.symlink(absolute_path(app_data['src'].to_string(index=False)), absolute_path(app_data['dest'].to_string(index=False)))
-  if app_install['extra'].item():
-    st.info(f"Installing {app_data['name'].to_string(index=False)} links! ({app_data['dest2'].to_string(index=False)})")
-    os.symlink(absolute_path(app_data['src2'].to_string(index=False)), absolute_path(app_data['dest2'].to_string(index=False)))
+  if os.path.islink(absolute_path(app_data['dest'])):
+    st.warning(f"Link found at {app_data['dest']}.. Removing!")
+    os.unlink(absolute_path(app_data['dest']))
+    if app_install['extra'].item() and os.path.islink(absolute_path(app_data['dest2'])):
+      st.warning(f"Link found at {app_data['dest2']}.. Removing!")
+      os.unlink(absolute_path(app_data['dest2']))
+  elif os.path.isfile(absolute_path(app_data['dest'])):
+    st.warning(f"File found at {app_data['dest']}.. Removing!")
+    os.remove(absolute_path(app_data['dest']))
+    if app_install['extra'].item() and os.path.isfile(absolute_path(app_data['dest2'])):
+      st.warning(f"File found at {app_data['dest2']}.. Removing!")
+      os.remove(absolute_path(app_data['dest2']))
+  elif os.path.isdir(absolute_path(app_data['dest'])):
+    st.warning(f"Directory found at {app_data['dest']}.. Removing!")
+    os.rmdir(absolute_path(app_data['dest']))
+    if app_install['extra'].item() and os.path.isdir(absolute_path(app_data['dest2'])):
+      st.warning(f"Directory found at {app_data['dest2']}.. Removing!")
+      os.rmdir(absolute_path(app_data['dest2']))
+  st.info(f"Installing {app_data['name']} links! ({app_data['dest']})")
+  os.symlink(absolute_path(app_data['src']), absolute_path(app_data['dest']))
+  if app_install['extra'].tolist():
+    st.info(f"Installing {app_data['name']} links! ({app_data['dest2']})")
+    os.symlink(absolute_path(app_data['src2']), absolute_path(app_data['dest2']))
 
 def remove(app_data):
-  st.info(f"Removing {app_data['name'].to_string(index=False)} ({app_data['dest'].to_string(index=False)})")
-  os.unlink(absolute_path(app_data['dest'].to_string(index=False)))
+  st.info(f"Removing {app_data['name']} ({app_data['dest']})")
+  os.unlink(absolute_path(app_data['dest']))
   if app_data['extra'].item():
-    st.info(f"Removing {app_data['name'].to_string(index=False)} ({app_data['dest2'].to_string(index=False)})")
-    os.unlink(absolute_path(app_data['dest2'].to_string(index=False)))
+    st.info(f"Removing {app_data['name']} ({app_data['dest2']})")
+    os.unlink(absolute_path(app_data['dest2']))
 
 def init_config():
   if not os.path.isfile(CONFIG):
@@ -111,7 +111,7 @@ with tab1:
     st.success("Installing configs....")
     for app in app_config:
       app_install = dataframe[dataframe['name'].str.match(app)]
-      install(app_install)
+      install(app_install.iloc[0])
     st.success("Done! :3")
     time.sleep(2)
     st.rerun()
@@ -123,7 +123,7 @@ with tab2:
   if button and app_remove_list:
     for app in app_remove_list:
       app_remove = dataframe[dataframe['name'].str.match(app)]
-      remove(app_remove)
+      remove(app_remove.iloc[0])
     st.success("Done :3")
     time.sleep(2)
     st.rerun()
