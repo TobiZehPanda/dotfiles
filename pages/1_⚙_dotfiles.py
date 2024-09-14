@@ -81,7 +81,8 @@ def install(app_data):
       os.rmdir(absolute_path(app_data['dest2']))
   st.info(f"Installing {app_data['name']} links! ({app_data['dest']})")
   os.symlink(absolute_path(app_data['src']), absolute_path(app_data['dest']))
-  if app_install['extra'].tolist():
+
+  if app_install['extra'].item():
     st.info(f"Installing {app_data['name']} links! ({app_data['dest2']})")
     os.symlink(absolute_path(app_data['src2']), absolute_path(app_data['dest2']))
 
