@@ -21,7 +21,7 @@ def parse_line(line):
 
 def parse_file(filepath):
   df = []
-  df = pd.DataFrame(df, columns=['Host', 'HostName', 'User', 'Port', 'IdentityFile', 'LogLevel', 'Compression', 'ProxyCommand'])
+  df = pd.DataFrame(df, columns=['Host', 'HostName', 'User', 'Port', 'IdentityFile', 'LogLevel', 'Compression'])
   counter = -1
   with open(filepath, 'r', encoding='UTF-8') as file:
     line = file.readline()
@@ -49,9 +49,6 @@ def parse_file(filepath):
       if key == 'compression':
         compression = match.group('compression')
         df.at[counter, 'Compression'] = compression
-      if key == 'proxycommand':
-        proxycommand = match.group('proxycommand')
-        df.at[counter, 'ProxyCommand'] = proxycommand
       line = file.readline()
   return df
 
@@ -77,8 +74,7 @@ rx_dict = {
   'port': re.compile(r'Port (?P<port>\d+)\n'),
   'identity': re.compile(r'IdentityFile (?P<identity>.*)\n'),
   'log': re.compile(r'LogLevel (?P<log>.*)\n'),
-  'compression': re.compile(r'Compression (?P<compression>.*)\n'),
-  'proxycommand': re.compile(r'ProxyCommand (?P<proxycommand>.*)\n')
+  'compression': re.compile(r'Compression (?P<compression>.*)\n')
 }
 
 if not os.path.exists(DIR):
@@ -98,7 +94,7 @@ with tab1:
 with tab2:
   data = parse_file(FILE)
   with st.form("add", clear_on_submit=True):
-    st_grid = grid(2, 2, 1, 2, 1)
+    st_grid = grid(2, 2, 1, 2)
     st_host = st_grid.text_input("Name*")
     st_hostname = st_grid.text_input("IP Address/Hostname*")
     st_user = st_grid.text_input("User")
@@ -106,7 +102,6 @@ with tab2:
     st_identity = st_grid.text_input("Identity Path")
     st_log = st_grid.selectbox("Log Level", ("", "INFO", "VERBOSE"))
     st_compression = st_grid.selectbox("Compression", ("", "Yes", "No"))
-    st_proxycommand = st_grid.text_input("Proxy Command")
     st_grid.caption(r':red[_\* is required_]')
     st_add = st.form_submit_button("Add")
 
@@ -117,7 +112,7 @@ with tab2:
     if len(st_hostname) == 0:
       st.error("IP/Hostname is required!")
       st.stop()
-    data.loc[len(data.index)] = [st_host, st_hostname, st_user, st_port, st_identity, st_log, st_compression, st_proxycommand]
+    data.loc[len(data.index)] = [st_host, st_hostname, st_user, st_port, st_identity, st_log, st_compression]
     data = data.replace([''], [None])
     write_data(data.sort_values(by='Host'))
     st.rerun()
