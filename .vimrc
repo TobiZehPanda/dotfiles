@@ -59,6 +59,7 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'rsaraf/vim-advanced-lint'
 Plug 'sheerun/vim-polyglot'
 Plug 'chriskempson/base16-vim'
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
