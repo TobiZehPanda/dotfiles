@@ -39,6 +39,7 @@ pydeck==0.9.1
 Pygments==2.18.0
 pymdown-extensions==10.8.1
 pyparsing==3.1.2
+PyTermGUI==7.7.2
 python-dateutil==2.9.0.post0
 pytz==2024.1
 PyYAML==6.0.1
@@ -70,3 +71,4 @@ tzdata==2024.1
 urllib3==2.2.1
 validators==0.28.3
 watchdog==4.0.1
+wcwidth==0.2.13

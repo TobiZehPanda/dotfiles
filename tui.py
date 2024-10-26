@@ -1,0 +1,166 @@
+import pytermgui as ptg
+import csv
+from dataclasses import dataclass
+import os.path
+
+CONFIG = "./configurations.csv"
+
+@dataclass
+class config:
+  name: str = ""
+  source: str = ""
+  destination: str = ""
+  source2: str = ""
+  destination2: str = ""
+
+def config_count():
+  with open(CONFIG) as csvfile:
+    reader = csv.reader(csvfile)
+    i = 0
+    for row in reader:
+      i = i + 1
+  return i
+
+def config_init():
+  # config_list = [config() for i in range(config_count())]
+  config_list = []
+  with open(CONFIG) as csvfile:
+    reader = csv.reader(csvfile)
+    i = 0
+    for row in reader:
+      config_list.append(config())
+      config_list[i].name = row[0]
+      config_list[i].source = row[1]
+      config_list[i].destination = row[2]
+      config_list[i].source2 = row[3]
+      config_list[i].destination2 = row[4]
+      i = i + 1
+  return config_list
+
+def add_config(manager: ptg.WindowManager, window: ptg.Window):
+  for widget in window:
+    if isinstance(widget, ptg.InputField):
+      if widget.prompt == "Name: ":
+        name = widget.value
+      elif widget.prompt == "Source: ":
+        source = widget.value
+      elif widget.prompt == "Destination: ":
+        destination = widget.value
+      elif widget.prompt == "Source 2: ":
+        source2 = widget.value
+      elif widget.prompt == "Destination 2: ":
+        destination2 = widget.value
+      continue
+  manager.stop()
+  with open(CONFIG, 'a') as csvfile:
+    csvfile.write(f"{name},{source},{destination},{source2},{destination2}\n")
+
+def list_installed(config_list):
+  installed = []
+  for config in config_list:
+    if os.path.islink(os.path.expanduser(config.destination)):
+      installed.append(config)
+  return installed
+
+def list_not_installed(config_list):
+  not_installed = []
+  for config in config_list:
+    if not os.path.islink(os.path.expanduser(config.destination)):
+      not_installed.append(config)
+  return not_installed
+
+def install_config(manager: ptg.WindowManager, window: ptg.Window):
+  name = ""
+  for widget in window:
+    if isinstance(widget, ptg.InputField):
+      if widget.prompt == "Name: ":
+        print(widget.value)
+        name = widget.value
+      continue
+  name = name.replace(",", " ")
+  name_split = name.split()
+  manager.stop()
+  for y in name_split:
+    for x in not_installed:
+      if y == x.name:
+          os.symlink(x.source, x.destination)
+
+def delete_config(manager: ptg.WindowManager, window: ptg.Window):
+  name = ""
+  for widget in window:
+    if isinstance(widget, ptg.InputField):
+      if widget.prompt == "Name: ":
+        print(widget.value)
+        name = widget.value
+      continue
+  name = name.replace(",", " ")
+  name_split = name.split()
+  manager.stop()
+  for y in name_split:
+    for x in installed:
+      if y == x.name:
+          os.remove(x.destination)
+
+def _define_layout() -> ptg.Layout:
+  layout = ptg.Layout()
+  layout.add_slot("Header", height=3)
+  layout.add_break()
+
+  layout.add_slot("AddConfig")
+  layout.add_break()
+
+  layout.add_slot("Installer", width=0.5)
+  layout.add_slot("NotInstalled", width=0.25)
+  layout.add_slot("Installed", width=0.25)
+  return layout
+
+full_config_list = config_init()
+installed = list_installed(full_config_list)
+not_installed = list_not_installed(full_config_list)
+
+with ptg.WindowManager() as manager:
+  manager.layout = _define_layout()
+  header_win = ptg.Window(
+  "[green bold]Dotfiles Config",
+  )
+  manager.add(header_win, assign="header")
+  addconfig_win = ptg.Window(
+    ptg.InputField("", prompt="Name: "),
+    "",
+    ptg.InputField("", prompt="Source: "),
+    "",
+    ptg.InputField("", prompt="Destination: "),
+    "",
+    ptg.InputField("", prompt="Source 2: "),
+    "",
+    ptg.InputField("", prompt="Destination 2: "),
+    "",
+    "",
+    ptg.Button("Add", lambda *_: add_config(manager, addconfig_win)),
+    title="[yellow bold]Add Config",
+  )
+  manager.add(addconfig_win, assign="addconfig")
+  installer_win = ptg.Window(
+    ptg.InputField("", prompt="Name: "),
+    (ptg.Button("Install", lambda *_: install_config(manager, installer_win)), ptg.Button("Delete", lambda *_: delete_config(manager, installer_win))),
+    title="[cyan bold]Installer",
+  )
+  manager.add(installer_win, assign="installer")
+  buffer = ""
+  for x in not_installed:
+    buffer += x.name 
+    buffer += "\n"
+  not_installed_win = ptg.Window(
+    buffer,
+    title="[red bold]Not Installed",
+  )
+  manager.add(not_installed_win, assign="notinstalled")
+  buffer = ""
+  for x in installed:
+    buffer += x.name 
+    buffer += "\n"
+  installed_win = ptg.Window(
+  buffer,
+  title="[green bold]Installed",
+  )
+  manager.add(installed_win, assign="installed")
