@@ -2,8 +2,10 @@ import pytermgui as ptg
 import csv
 from dataclasses import dataclass
 import os.path
+from pytermgui.pretty import pprint
 
 CONFIG = "./configurations.csv"
+OUTPUT = {}
 
 @dataclass
 class config:
@@ -35,7 +37,12 @@ def config_init():
       config_list[i].source2 = row[3]
       config_list[i].destination2 = row[4]
       i = i + 1
-  return config_list
+  return sorted(config_list, key=lambda x: x.name)
+
+def config_write(config_list):
+  with open(CONFIG, 'w') as csvfile:
+    for x in config_list:
+      csvfile.write(f"{x.name},{x.source},{x.destination},{x.source2},{x.destination2}\n")
 
 def add_config(manager: ptg.WindowManager, window: ptg.Window):
   for widget in window:
@@ -87,12 +94,18 @@ def install_config(manager: ptg.WindowManager, window: ptg.Window):
         if not x.destination2 == "":
           os.symlink(x.source2, x.destination2)
 
-def delete_config(manager: ptg.WindowManager, window: ptg.Window):
+def remove_duplicate(x):
+  final_list = []
+  for y in x:
+    if x not in final_list:
+      final_list.append(x)
+  return final_list
+
+def remove_config(manager: ptg.WindowManager, window: ptg.Window):
   name = ""
   for widget in window:
     if isinstance(widget, ptg.InputField):
       if widget.prompt == "Name: ":
-        print(widget.value)
         name = widget.value
       continue
   name = name.replace(",", " ")
@@ -119,6 +132,7 @@ def _define_layout() -> ptg.Layout:
   return layout
 
 full_config_list = config_init()
+config_write(full_config_list)
 installed = list_installed(full_config_list)
 not_installed = list_not_installed(full_config_list)
 
@@ -146,7 +160,7 @@ with ptg.WindowManager() as manager:
   manager.add(addconfig_win, assign="addconfig")
   installer_win = ptg.Window(
     ptg.InputField("", prompt="Name: "),
-    (ptg.Button("Install", lambda *_: install_config(manager, installer_win)), ptg.Button("Delete", lambda *_: delete_config(manager, installer_win))),
+    (ptg.Button("[green bold]Install", lambda *_: install_config(manager, installer_win)), ptg.Button("[red bold]Remove", lambda *_: remove_config(manager, installer_win))),
     title="[cyan bold]Installer",
   )
   manager.add(installer_win, assign="installer")
@@ -168,3 +182,4 @@ with ptg.WindowManager() as manager:
   title="[green bold]Installed",
   )
   manager.add(installed_win, assign="installed")
+pprint(OUTPUT)
