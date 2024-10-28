@@ -90,9 +90,9 @@ def install_config(manager: ptg.WindowManager, window: ptg.Window):
   for y in name_split:
     for x in not_installed:
       if y == x.name:
-        os.symlink(x.source, x.destination)
+        os.symlink(os.path.expanduser(x.source), os.path.expanduser(x.destination))
         if not x.destination2 == "":
-          os.symlink(x.source2, x.destination2)
+          os.symlink(os.path.expanduser(x.source2), os.path.expanduser(x.destination2))
 
 def remove_duplicate(x):
   final_list = []
@@ -114,9 +114,9 @@ def remove_config(manager: ptg.WindowManager, window: ptg.Window):
   for y in name_split:
     for x in installed:
       if y == x.name:
-        os.remove(x.destination)
+        os.remove(os.path.expanduser(x.destination))
         if not x.destination2 == "":
-          os.remove(x.destination2)
+          os.remove(os.path.expanduser(x.destination2))
 
 def _define_layout() -> ptg.Layout:
   layout = ptg.Layout()
