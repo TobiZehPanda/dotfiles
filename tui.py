@@ -15,7 +15,7 @@ class config:
   source2: str = ""
   destination2: str = ""
 
-def fullpath(path):
+def full_path(path):
   return abspath(expanduser(path))
 
 def config_count():
@@ -68,14 +68,14 @@ def add_config(manager: ptg.WindowManager, window: ptg.Window):
 def list_installed(config_list):
   installed = []
   for config in config_list:
-    if islink(fullpath(config.destination)):
+    if islink(full_path(config.destination)):
       installed.append(config)
   return installed
 
 def list_not_installed(config_list):
   not_installed = []
   for config in config_list:
-    if not islink(fullpath(config.destination)):
+    if not islink(full_path(config.destination)):
       not_installed.append(config)
   return not_installed
 
@@ -92,13 +92,13 @@ def install_config(manager: ptg.WindowManager, window: ptg.Window):
   for y in name_split:
     for x in not_installed:
       if y == x.name:
-        if isfile(fullpath(x.destination)):
-          os.remove(fullpath(x.destination))
-        os.symlink(fullpath(x.source), fullpath(x.destination))
+        if isfile(full_path(x.destination)):
+          os.remove(full_path(x.destination))
+        os.symlink(full_path(x.source), full_path(x.destination))
         if not x.destination2 == "":
-          if isfile(fullpath(x.destination2)):
-            os.remove(fullpath(x.destination2))
-          os.symlink(fullpath(x.source2), fullpath(x.destination2))
+          if isfile(full_path(x.destination2)):
+            os.remove(full_path(x.destination2))
+          os.symlink(full_path(x.source2), full_path(x.destination2))
 
 def remove_duplicate(x):
   final_list = []
@@ -120,9 +120,9 @@ def remove_config(manager: ptg.WindowManager, window: ptg.Window):
   for y in name_split:
     for x in installed:
       if y == x.name:
-        os.remove(fullpath(x.destination))
+        os.remove(full_path(x.destination))
         if not x.destination2 == "":
-          os.remove(fullpath(x.destination2))
+          os.remove(full_path(x.destination2))
 
 def _define_layout() -> ptg.Layout:
   layout = ptg.Layout()
