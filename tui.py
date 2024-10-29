@@ -1,7 +1,8 @@
 import pytermgui as ptg
 import csv
 from dataclasses import dataclass
-import os.path
+import os
+from os.path import expanduser, abspath, isfile, islink
 
 CONFIG = "./configurations.csv"
 OUTPUT = {}
@@ -13,6 +14,9 @@ class config:
   destination: str = ""
   source2: str = ""
   destination2: str = ""
+
+def fullpath(path):
+  return abspath(expanduser(path))
 
 def config_count():
   with open(CONFIG) as csvfile:
@@ -64,14 +68,14 @@ def add_config(manager: ptg.WindowManager, window: ptg.Window):
 def list_installed(config_list):
   installed = []
   for config in config_list:
-    if os.path.islink(os.path.expanduser(config.destination)):
+    if islink(fullpath(config.destination)):
       installed.append(config)
   return installed
 
 def list_not_installed(config_list):
   not_installed = []
   for config in config_list:
-    if not os.path.islink(os.path.expanduser(config.destination)):
+    if not islink(fullpath(config.destination)):
       not_installed.append(config)
   return not_installed
 
@@ -88,13 +92,13 @@ def install_config(manager: ptg.WindowManager, window: ptg.Window):
   for y in name_split:
     for x in not_installed:
       if y == x.name:
-        if os.path.isfile(os.path.expanduser(x.destination)):
-          os.remove(os.path.expanduser(x.destination))
-        os.symlink(os.path.expanduser(x.source), os.path.expanduser(x.destination))
+        if isfile(fullpath(x.destination)):
+          os.remove(fullpath(x.destination))
+        os.symlink(fullpath(x.source), fullpath(x.destination))
         if not x.destination2 == "":
-          if os.path.isfile(os.path.expanduser(x.destination2)):
-            os.remove(os.path.expanduser(x.destination2))
-          os.symlink(os.path.expanduser(x.source2), os.path.expanduser(x.destination2))
+          if isfile(fullpath(x.destination2)):
+            os.remove(fullpath(x.destination2))
+          os.symlink(fullpath(x.source2), fullpath(x.destination2))
 
 def remove_duplicate(x):
   final_list = []
@@ -116,9 +120,9 @@ def remove_config(manager: ptg.WindowManager, window: ptg.Window):
   for y in name_split:
     for x in installed:
       if y == x.name:
-        os.remove(os.path.expanduser(x.destination))
+        os.remove(fullpath(x.destination))
         if not x.destination2 == "":
-          os.remove(os.path.expanduser(x.destination2))
+          os.remove(fullpath(x.destination2))
 
 def _define_layout() -> ptg.Layout:
   layout = ptg.Layout()
