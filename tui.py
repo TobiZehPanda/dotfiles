@@ -2,7 +2,7 @@ import pytermgui as ptg
 import csv
 from dataclasses import dataclass
 import os
-from os.path import expanduser, abspath, isfile, islink
+from os.path import expanduser, abspath, isfile, islink, isdir
 
 CONFIG = "./configurations.csv"
 OUTPUT = {}
