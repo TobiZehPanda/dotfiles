@@ -27,6 +27,7 @@ let g:python_recommended_style = 0
 autocmd BufEnter *.py colorscheme base16-3024
 autocmd BufEnter *.py highlight Normal guibg=NONE ctermbg=NONE
 autocmd BufEnter *.py highlight Pmenu ctermfg=15 ctermbg=0
+autocmd BufEnter *.py highlight Search ctermfg=15 ctermbg=0
 autocmd FileType python setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 
 call plug#begin()
@@ -103,3 +104,4 @@ autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
 hi SpellBad cterm=underline ctermfg=red ctermbg=NONE
 hi ALEWarning cterm=underline ctermfg=red ctermbg=NONE
 hi Pmenu ctermfg=15 ctermbg=0
+hi Search ctermfg=15 ctermbg=0

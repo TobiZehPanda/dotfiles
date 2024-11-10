@@ -89,6 +89,8 @@ def install_config(manager: ptg.WindowManager, window: ptg.Window):
   name = name.replace(",", " ")
   name_split = name.split()
   manager.stop()
+  if not isdir(full_path("~/.config")):
+    os.mkdir(full_path("~/.config"))
   for y in name_split:
     for x in not_installed:
       if y == x.name:
