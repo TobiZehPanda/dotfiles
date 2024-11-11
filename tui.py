@@ -3,6 +3,7 @@ import csv
 from dataclasses import dataclass
 import os
 from os.path import expanduser, abspath, isfile, islink, isdir
+import argparse
 
 CONFIG = "./configurations.csv"
 OUTPUT = {}
@@ -102,6 +103,20 @@ def install_config(manager: ptg.WindowManager, window: ptg.Window):
             os.remove(full_path(x.destination2))
           os.symlink(full_path(x.source2), full_path(x.destination2))
 
+def install_config_cmdline(name):
+  if not isdir(full_path("~/.config")):
+    os.mkdir(full_path("~/.config"))
+  for y in name:
+    for x in not_installed:
+      if y == x.name:
+        if isfile(full_path(x.destination)):
+          os.remove(full_path(x.destination))
+        os.symlink(full_path(x.source), full_path(x.destination))
+        if not x.destination2 == "":
+          if isfile(full_path(x.destination2)):
+            os.remove(full_path(x.destination2))
+          os.symlink(full_path(x.source2), full_path(x.destination2))
+
 def remove_duplicate(x):
   final_list = []
   for y in x:
@@ -126,6 +141,14 @@ def remove_config(manager: ptg.WindowManager, window: ptg.Window):
         if not x.destination2 == "":
           os.remove(full_path(x.destination2))
 
+def remove_config_cmdline(name):
+  for y in name:
+    for x in installed:
+      if y == x.name:
+        os.remove(full_path(x.destination))
+        if not x.destination2 == "":
+          os.remove(full_path(x.destination2))
+
 def _define_layout() -> ptg.Layout:
   layout = ptg.Layout()
   layout.add_slot("Header", height=3)
@@ -144,50 +167,61 @@ config_write(full_config_list)
 installed = list_installed(full_config_list)
 not_installed = list_not_installed(full_config_list)
 
-with ptg.WindowManager() as manager:
-  manager.layout = _define_layout()
-  header_win = ptg.Window(
-  "[green bold]Dotfiles Config",
-  )
-  manager.add(header_win, assign="header")
-  addconfig_win = ptg.Window(
-    ptg.InputField("", prompt="Name: "),
-    "",
-    ptg.InputField("", prompt="Source: "),
-    "",
-    ptg.InputField("", prompt="Destination: "),
-    "",
-    ptg.InputField("", prompt="Source 2: "),
-    "",
-    ptg.InputField("", prompt="Destination 2: "),
-    "",
-    "",
-    ptg.Button("Add", lambda *_: add_config(manager, addconfig_win)),
-    title="[yellow bold]Add Config",
-  )
-  manager.add(addconfig_win, assign="addconfig")
-  installer_win = ptg.Window(
-    ptg.InputField("", prompt="Name: "),
-    "",
-    (ptg.Button("[green bold]Install", lambda *_: install_config(manager, installer_win)), ptg.Button("[red bold]Remove", lambda *_: remove_config(manager, installer_win))),
-    title="[cyan bold]Installer",
-  )
-  manager.add(installer_win, assign="installer")
-  buffer = ""
-  for x in not_installed:
-    buffer += x.name 
-    buffer += "\n"
-  not_installed_win = ptg.Window(
+parser = argparse.ArgumentParser("dotfiles_installer")
+parser.add_argument("-i", "--install", help="Install configs", nargs="+")
+parser.add_argument("-r", "--remove", help="Remove configs", nargs="+")
+parser.add_argument("-t", "--tui", help="TUI Interface", action="store_true")
+args = parser.parse_args()
+
+if args.install:
+  install_config_cmdline(args.install)
+elif args.remove:
+  remove_config_cmdline(args.remove)
+elif args.tui:
+  with ptg.WindowManager() as manager:
+    manager.layout = _define_layout()
+    header_win = ptg.Window(
+    "[green bold]Dotfiles Config",
+    )
+    manager.add(header_win, assign="header")
+    addconfig_win = ptg.Window(
+      ptg.InputField("", prompt="Name: "),
+      "",
+      ptg.InputField("", prompt="Source: "),
+      "",
+      ptg.InputField("", prompt="Destination: "),
+      "",
+      ptg.InputField("", prompt="Source 2: "),
+      "",
+      ptg.InputField("", prompt="Destination 2: "),
+      "",
+      "",
+      ptg.Button("Add", lambda *_: add_config(manager, addconfig_win)),
+      title="[yellow bold]Add Config",
+    )
+    manager.add(addconfig_win, assign="addconfig")
+    installer_win = ptg.Window(
+      ptg.InputField("", prompt="Name: "),
+      "",
+      (ptg.Button("[green bold]Install", lambda *_: install_config(manager, installer_win)), ptg.Button("[red bold]Remove", lambda *_: remove_config(manager, installer_win))),
+      title="[cyan bold]Installer",
+    )
+    manager.add(installer_win, assign="installer")
+    buffer = ""
+    for x in not_installed:
+      buffer += x.name 
+      buffer += "\n"
+    not_installed_win = ptg.Window(
+      buffer,
+      title="[red bold]Not Installed",
+    )
+    manager.add(not_installed_win, assign="notinstalled")
+    buffer = ""
+    for x in installed:
+      buffer += x.name 
+      buffer += "\n"
+    installed_win = ptg.Window(
     buffer,
-    title="[red bold]Not Installed",
-  )
-  manager.add(not_installed_win, assign="notinstalled")
-  buffer = ""
-  for x in installed:
-    buffer += x.name 
-    buffer += "\n"
-  installed_win = ptg.Window(
-  buffer,
-  title="[green bold]Installed",
-  )
-  manager.add(installed_win, assign="installed")
+    title="[green bold]Installed",
+    )
+    manager.add(installed_win, assign="installed")
