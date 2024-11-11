@@ -10,23 +10,23 @@ OUTPUT = {}
 
 @dataclass
 class config:
-    name: str = ""
-    source: str = ""
-    destination: str = ""
-    source2: str = ""
-    destination2: str = ""
+  name: str = ""
+  source: str = ""
+  destination: str = ""
+  source2: str = ""
+  destination2: str = ""
 
 class Text:
-    BOLD_START = '\033[1m'
-    END = '\033[0m'
-    UNDERLINE = '\033[4m'
-    PURPLE = '\033[95m'
-    CYAN = '\033[96m'
-    DARKCYAN = '\033[36m'
-    BLUE = '\033[94m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
+  BOLD_START = '\033[1m'
+  END = '\033[0m'
+  UNDERLINE = '\033[4m'
+  PURPLE = '\033[95m'
+  CYAN = '\033[96m'
+  DARKCYAN = '\033[36m'
+  BLUE = '\033[94m'
+  GREEN = '\033[92m'
+  YELLOW = '\033[93m'
+  RED = '\033[91m'
 
 def full_path(path):
   return abspath(expanduser(path))
