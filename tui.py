@@ -10,11 +10,23 @@ OUTPUT = {}
 
 @dataclass
 class config:
-  name: str = ""
-  source: str = ""
-  destination: str = ""
-  source2: str = ""
-  destination2: str = ""
+    name: str = ""
+    source: str = ""
+    destination: str = ""
+    source2: str = ""
+    destination2: str = ""
+
+class Text:
+    BOLD_START = '\033[1m'
+    END = '\033[0m'
+    UNDERLINE = '\033[4m'
+    PURPLE = '\033[95m'
+    CYAN = '\033[96m'
+    DARKCYAN = '\033[36m'
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    YELLOW = '\033[93m'
+    RED = '\033[91m'
 
 def full_path(path):
   return abspath(expanduser(path))
@@ -28,7 +40,6 @@ def config_count():
   return i
 
 def config_init():
-  # config_list = [config() for i in range(config_count())]
   config_list = []
   with open(CONFIG) as csvfile:
     reader = csv.reader(csvfile)
@@ -170,6 +181,7 @@ not_installed = list_not_installed(full_config_list)
 parser = argparse.ArgumentParser("dotfiles_installer")
 parser.add_argument("-i", "--install", help="Install configs", nargs="+")
 parser.add_argument("-r", "--remove", help="Remove configs", nargs="+")
+parser.add_argument("-l", "--list", help="List configs", action="store_true")
 parser.add_argument("-t", "--tui", help="TUI Interface", action="store_true")
 args = parser.parse_args()
 
@@ -177,6 +189,13 @@ if args.install:
   install_config_cmdline(args.install)
 elif args.remove:
   remove_config_cmdline(args.remove)
+elif args.list:
+    print(Text.BOLD_START + Text.GREEN + "Installed" + Text.END)
+    for x in installed:
+        print(x.name)
+    print(Text.BOLD_START + Text.RED + "Not Installed" + Text.END)
+    for x in not_installed:
+        print(x.name)
 elif args.tui:
   with ptg.WindowManager() as manager:
     manager.layout = _define_layout()
