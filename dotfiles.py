@@ -121,7 +121,7 @@ parser = argparse.ArgumentParser("dotfiles_installer")
 parser.add_argument("-i", "--install", help="Install configs", nargs="+")
 parser.add_argument("-r", "--remove", help="Remove configs", nargs="+")
 parser.add_argument("-l", "--list", help="List configs", action="store_true")
-parser.add_argument("-a", "--add", help="Add new configs", action="store_true")
+parser.add_argument("-a", "--add", help="Add new configs", nargs="+")
 parser.add_argument("-d", "--delete", help="Delete configs", nargs="+")
 args = parser.parse_args()
 
@@ -137,17 +137,18 @@ elif args.list:
     for x in not_installed:
         print(x.name)
 elif args.add:
-  print("Name: ")
-  name = input()
-  print("Source: ")
-  source = input()
-  print("Destination: ")
-  destination = input()
-  print("Source 2: ")
-  source2 = input()
-  print("Destination 2: ")
-  destination2 = input()
-  add_config(name, source, destination, source2, destination2)
+  length = len(args.add)
+  if length == 3:
+    name, source, destination = args.add
+    source2 = ""
+    destination2 = ""
+    print(destination)
+    add_config(name, source, destination, source2, destination2)
+  elif length == 5:
+    name, source, destination, source2, destination2 = args.add
+    add_config(name, source, destination, source2, destination2)
+  else:
+    print("Wrong number of arguments")
 elif args.delete:
   delete_config(args.delete)
 else:
