@@ -121,8 +121,11 @@ parser = argparse.ArgumentParser("dotfiles_installer")
 parser.add_argument("-i", "--install", help="Install configs", nargs="+")
 parser.add_argument("-r", "--remove", help="Remove configs", nargs="+")
 parser.add_argument("-l", "--list", help="List configs", action="store_true")
-parser.add_argument("-a", "--add", help="Add new configs", nargs="+")
 parser.add_argument("-d", "--delete", help="Delete configs", nargs="+")
+group = parser.add_argument_group("Add", "Add Configs")
+mutual = group.add_mutually_exclusive_group()
+mutual.add_argument("-a", "--add", help="Add new configs (3 vars)", nargs=3, metavar=("NAME", "SOURCE", "DESTINATION"))
+mutual.add_argument("-ae", "--add-extra", help="Add new configs (5 vars)", nargs=5, metavar=("NAME", "SOURCE", "DESTINATION", "SOURCE2", "DESTINATION2"))
 args = parser.parse_args()
 
 if args.install:
@@ -137,17 +140,13 @@ elif args.list:
     for x in not_installed:
         print(x.name)
 elif args.add:
-  length = len(args.add)
-  if length == 3:
-    name, source, destination = args.add
-    source2 = ""
-    destination2 = ""
-    add_config(name, source, destination, source2, destination2)
-  elif length == 5:
-    name, source, destination, source2, destination2 = args.add
-    add_config(name, source, destination, source2, destination2)
-  else:
-    print("Wrong number of arguments")
+  name, source, destination = args.add
+  source2 = ""
+  destination2 = ""
+  add_config(name, source, destination, source2, destination2)
+elif args.add_extra:
+  name, source, destination, source2, destination2 = args.add_extra
+  add_config(name, source, destination, source2, destination2)
 elif args.delete:
   delete_config(args.delete)
 else:
