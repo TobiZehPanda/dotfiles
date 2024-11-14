@@ -142,7 +142,6 @@ elif args.add:
     name, source, destination = args.add
     source2 = ""
     destination2 = ""
-    print(destination)
     add_config(name, source, destination, source2, destination2)
   elif length == 5:
     name, source, destination, source2, destination2 = args.add
