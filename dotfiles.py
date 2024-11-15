@@ -105,7 +105,6 @@ def remove_config(name):
           os.remove(full_path(x.destination2))
 
 def delete_config(name):
-  not_list = []
   for y in name:
     for x in full_config_list:
       if y == x.name:
