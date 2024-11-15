@@ -35,6 +35,7 @@
       "right": [
         "volume",
         "network",
+        "netstat",
         "bluetooth",
         "battery",
         "systray",
@@ -74,5 +75,14 @@
   "theme.bar.outer_spacing": "0",
   "menus.clock.weather.enabled": false,
   "menus.clock.weather.unit": "metric",
-  "bar.clock.format": "%a %b %d  %H:%M:%S"
+  "bar.clock.format": "%a %b %d  %H:%M:%S",
+  "menus.dashboard.stats.enable_gpu": true,
+  "menus.dashboard.stats.interval": 2500,
+  "menus.dashboard.stats.enabled": false,
+  "hyprpanel.restartCommand": "agsv1 -q; agsv1",
+  "menus.bluetooth.showBattery": true,
+  "theme.bar.buttons.modules.netstat.enableBorder": false,
+  "theme.bar.buttons.modules.storage.enableBorder": false,
+  "bar.customModules.netstat.networkInterface": "wlp7s0",
+  "bar.customModules.netstat.dynamicIcon": false
 }
