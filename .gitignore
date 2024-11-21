@@ -1,6 +1,6 @@
 .env
 .vim/
-monitor.conf
+monitors.conf
 windowrules.conf
 startup.conf
 hyprpaper.conf
