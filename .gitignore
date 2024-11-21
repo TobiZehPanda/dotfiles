@@ -1,3 +1,4 @@
+.env
 .vim/
 monitor.conf
 windowrules.conf

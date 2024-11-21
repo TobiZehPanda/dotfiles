@@ -1,10 +1,13 @@
-#!/bin/python
-
 import csv
 from dataclasses import dataclass
 import os
 from os.path import expanduser, abspath, isfile, islink, isdir
 import argparse
+import itertools
+from rich import print
+from rich.table import Table
+from rich.console import Console
+from rich import box
 
 CONFIG = "./configurations.csv"
 
@@ -133,12 +136,21 @@ if args.install:
 elif args.remove:
   remove_config(args.remove)
 elif args.list:
-    print(Text.BOLD_START + Text.GREEN + "Installed" + Text.END)
+    list_installed = []
+    list_not_installed = []
     for x in installed:
-        print(x.name)
-    print(Text.BOLD_START + Text.RED + "Not Installed" + Text.END)
+        list_installed.append(x.name)
     for x in not_installed:
-        print(x.name)
+        list_not_installed.append(x.name)
+    console = Console()
+    table = Table(show_header=True)
+    table.row_styles = ["none", "dim"]
+    table.box = box.SIMPLE
+    table.add_column("[bold green]Installed")
+    table.add_column("[bold red]Not Installed")
+    for x, y in itertools.zip_longest(list_installed, list_not_installed):
+      table.add_row(x, y)
+    console.print(table)
 elif args.add:
   name, source, destination = args.add
   source2 = ""

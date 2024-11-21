@@ -40,3 +40,10 @@ export HISTFILESIZE=1000000
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 setopt appendhistory
+
+# bun completions
+[ -s "/home/tobi/.bun/_bun" ] && source "/home/tobi/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
