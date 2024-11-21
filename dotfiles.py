@@ -1,7 +1,7 @@
 import csv
 from dataclasses import dataclass
 import os
-from os.path import expanduser, abspath, isfile, islink, isdir
+from os.path import expanduser, abspath, isfile, islink, isdir, dirname
 import argparse
 import itertools
 from rich import print
@@ -18,18 +18,6 @@ class config:
   destination: str = ""
   source2: str = ""
   destination2: str = ""
-
-class Text:
-  BOLD_START = '\033[1m'
-  END = '\033[0m'
-  UNDERLINE = '\033[4m'
-  PURPLE = '\033[95m'
-  CYAN = '\033[96m'
-  DARKCYAN = '\033[36m'
-  BLUE = '\033[94m'
-  GREEN = '\033[92m'
-  YELLOW = '\033[93m'
-  RED = '\033[91m'
 
 def full_path(path):
   return abspath(expanduser(path))
@@ -73,17 +61,27 @@ def list_not_installed(config_list):
   return not_installed
 
 def install_config(name):
-  if not isdir(full_path("~/.config")):
-    os.mkdir(full_path("~/.config"))
   for y in name:
     for x in not_installed:
       if y == x.name:
+        directory = dirname(full_path(x.destination))
+        sub_directory = dirname(dirname(full_path(x.destination)))
+        if not isdir(sub_directory):
+          os.mkdir(sub_directory)
+        if not isdir(directory):
+          os.mkdir(directory)
         if isfile(full_path(x.destination)):
           print(f"File found at {x.destination}, removing...")
           os.remove(full_path(x.destination))
         print(f"Symbolic linking {x.source} -> {x.destination}")
         os.symlink(full_path(x.source), full_path(x.destination))
         if not x.destination2 == "":
+          directory = dirname(full_path(x.destination2))
+          sub_directory = dirname(dirname(full_path(x.destination2)))
+          if not isdir(sub_directory):
+            os.mkdir(sub_directory)
+          if not isdir(directory):
+            os.mkdir(directory)
           if isfile(full_path(x.destination2)):
             print(f"File found at {x.destination}, removing...")
             os.remove(full_path(x.destination2))
