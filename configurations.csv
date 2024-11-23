@@ -3,7 +3,7 @@ darkman-folders,.local/share/dark-mode.d,~/.local/share/dark-mode.d,.local/share
 dunst,.config/dunst,~/.config/dunst,,
 hyprland,.config/hypr,~/.config/hypr,,
 i3,.config/i3/config,~/.config/i3/config,,
-kitty,.config/kitty,~/.config/kitty,,
+kitty,.config/kitty/kitty.conf,~/.config/kitty/kitty.conf,,
 pylint,.pylintrc,~/.pylintrc,,
 rofi,.config/rofi,~/.config/rofi,,
 ssh,.ssh/config,~/.ssh/config,,
