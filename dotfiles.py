@@ -62,31 +62,39 @@ def list_not_installed(config_list):
 
 def install_config(name):
   for y in name:
+    if not y in not_installed_names:
+      print(f"Either [bold red]{y}[/bold red] does not exist or not found...")
     for x in not_installed:
       if y == x.name:
-        directory = dirname(full_path(x.destination))
-        sub_directory = dirname(dirname(full_path(x.destination)))
-        if not isdir(sub_directory):
-          os.mkdir(sub_directory)
-        if not isdir(directory):
-          os.mkdir(directory)
-        if isfile(full_path(x.destination)):
-          print(f"File found at {x.destination}, removing...")
-          os.remove(full_path(x.destination))
-        print(f"Symbolic linking {x.source} -> {x.destination}")
-        os.symlink(full_path(x.source), full_path(x.destination))
-        if not x.destination2 == "":
-          directory = dirname(full_path(x.destination2))
-          sub_directory = dirname(dirname(full_path(x.destination2)))
+        try:
+          directory = dirname(full_path(x.destination))
+          sub_directory = dirname(dirname(full_path(x.destination)))
           if not isdir(sub_directory):
             os.mkdir(sub_directory)
           if not isdir(directory):
             os.mkdir(directory)
-          if isfile(full_path(x.destination2)):
-            print(f"File found at {x.destination}, removing...")
-            os.remove(full_path(x.destination2))
-          print(f"Symbolic linking {x.source2} -> {x.destination2}")
-          os.symlink(full_path(x.source2), full_path(x.destination2))
+          if isfile(full_path(x.destination)):
+            print(f"File found at [bold cyan]{x.destination}[/bold cyan], removing...")
+            os.remove(full_path(x.destination))
+          print(f"Symbolic linking [bold blue]{x.source}[/bold blue] -> [bold cyan]{x.destination}[/bold cyan]")
+          os.symlink(full_path(x.source), full_path(x.destination))
+        except Exception as e:
+          print(f"Error installing [bold red]{x.name}[/bold red]. Go fix it. \n [bold red]{e}[/bold red]")
+        if not x.destination2 == "":
+          try:
+            directory = dirname(full_path(x.destination2))
+            sub_directory = dirname(dirname(full_path(x.destination2)))
+            if not isdir(sub_directory):
+              os.mkdir(sub_directory)
+            if not isdir(directory):
+              os.mkdir(directory)
+            if isfile(full_path(x.destination2)):
+              print(f"File found at [bold cyan]{x.destination}[/bold cyan], removing...")
+              os.remove(full_path(x.destination2))
+            print(f"Symbolic linking [bold blue]{x.source2}[/bold blue] -> [bold cyan]{x.destination2}[/bold cyan]")
+            os.symlink(full_path(x.source2), full_path(x.destination2))
+          except Exception as e:
+            print(f"Error installing [bold red]{x.name}[/bold red]. Go fix it. \n [bold red]{e}[/bold red]")
 
 def remove_duplicate(x):
   final_list = []
@@ -97,13 +105,21 @@ def remove_duplicate(x):
 
 def remove_config(name):
   for y in name:
+    if not y in installed_names:
+      print(f"Either [bold red]{y}[/bold red] does not exist or not found...")
     for x in installed:
       if y == x.name:
-        print(f"Removing {x.destination}")
-        os.remove(full_path(x.destination))
-        if not x.destination2 == "":
-          print(f"Removing {x.destination2}")
-          os.remove(full_path(x.destination2))
+        try:
+          print(f"Removing {x.destination}")
+          os.remove(full_path(x.destination))
+        except Exception as e:
+          print(f"[bold red]{e}[/bold red]")
+        try:
+          if not x.destination2 == "":
+            print(f"Removing {x.destination2}")
+            os.remove(full_path(x.destination2))
+        except Exception as e:
+          print(f"[bold red]{e}[/bold red]")
 
 def delete_config(name):
   for y in name:
@@ -112,10 +128,18 @@ def delete_config(name):
         full_config_list.remove(x)
   write_config(full_config_list)
 
+def name_list(config_list):
+  name_list = []
+  for x in config_list:
+    name_list.append(x.name)
+  return name_list
+
 full_config_list = config_init()
 write_config(full_config_list)
 installed = list_installed(full_config_list)
 not_installed = list_not_installed(full_config_list)
+installed_names = name_list(installed)
+not_installed_names = name_list(not_installed)
 
 parser = argparse.ArgumentParser("dotfiles_installer")
 manage = parser.add_argument_group()
