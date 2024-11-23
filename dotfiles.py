@@ -46,26 +46,28 @@ def add_config(name, source, destination, source2, destination2):
   with open(CONFIG, 'a') as csvfile:
     csvfile.write(f"{name},{source},{destination},{source2},{destination2}\n")
 
-def list_installed(config_list):
+def split_list(config_list):
   installed = []
+  not_installed = []
+  installed_names = []
+  not_installed_names = []
   for config in config_list:
     if islink(full_path(config.destination)):
       installed.append(config)
-  return installed
-
-def list_not_installed(config_list):
-  not_installed = []
-  for config in config_list:
-    if not islink(full_path(config.destination)):
+      installed_names.append(config.name)
+    else:
       not_installed.append(config)
-  return not_installed
+      not_installed_names.append(config.name)
+  return installed, not_installed, installed_names, not_installed_names
 
-def install_config(name):
-  for y in name:
-    if not y in not_installed_names:
-      print(f"Either [bold red]{y}[/bold red] does not exist or not found...")
-    for x in not_installed:
-      if y == x.name:
+
+def install_config(names):
+  for name in names:
+    if not name in not_installed_names:
+      print(f"Either [bold red]{name}[/bold red] does not exist or not found...")
+      exit(1)
+    for x in not_installed_list:
+      if name == x.name:
         try:
           directory = dirname(full_path(x.destination))
           sub_directory = dirname(dirname(full_path(x.destination)))
@@ -80,6 +82,7 @@ def install_config(name):
           os.symlink(full_path(x.source), full_path(x.destination))
         except Exception as e:
           print(f"Error installing [bold red]{x.name}[/bold red]. Go fix it. \n [bold red]{e}[/bold red]")
+          exit(1)
         if not x.destination2 == "":
           try:
             directory = dirname(full_path(x.destination2))
@@ -95,6 +98,7 @@ def install_config(name):
             os.symlink(full_path(x.source2), full_path(x.destination2))
           except Exception as e:
             print(f"Error installing [bold red]{x.name}[/bold red]. Go fix it. \n [bold red]{e}[/bold red]")
+            exit(1)
 
 def remove_duplicate(x):
   final_list = []
@@ -103,43 +107,37 @@ def remove_duplicate(x):
       final_list.append(x)
   return final_list
 
-def remove_config(name):
-  for y in name:
-    if not y in installed_names:
-      print(f"Either [bold red]{y}[/bold red] does not exist or not found...")
-    for x in installed:
-      if y == x.name:
+def remove_config(names):
+  for name in names:
+    if not name in installed_names:
+      print(f"Either [bold red]{name}[/bold red] does not exist or not found...")
+    for x in installed_list:
+      if name == x.name:
         try:
           print(f"Removing {x.destination}")
           os.remove(full_path(x.destination))
         except Exception as e:
           print(f"[bold red]{e}[/bold red]")
+          exit(1)
         try:
           if not x.destination2 == "":
             print(f"Removing {x.destination2}")
             os.remove(full_path(x.destination2))
         except Exception as e:
           print(f"[bold red]{e}[/bold red]")
+          exit(1)
 
-def delete_config(name):
-  for y in name:
+def delete_config(names):
+  for name in names:
     for x in full_config_list:
-      if y == x.name:
+      if name == x.name:
         full_config_list.remove(x)
   write_config(full_config_list)
 
-def name_list(config_list):
-  name_list = []
-  for x in config_list:
-    name_list.append(x.name)
-  return name_list
 
 full_config_list = config_init()
 write_config(full_config_list)
-installed = list_installed(full_config_list)
-not_installed = list_not_installed(full_config_list)
-installed_names = name_list(installed)
-not_installed_names = name_list(not_installed)
+installed_list, not_installed_list, installed_names, not_installed_names = split_list(full_config_list)
 
 parser = argparse.ArgumentParser("dotfiles_installer")
 manage = parser.add_argument_group()
@@ -160,9 +158,9 @@ elif args.remove:
 elif args.list:
     list_installed = []
     list_not_installed = []
-    for x in installed:
+    for x in installed_list:
         list_installed.append(x.name)
-    for x in not_installed:
+    for x in not_installed_list:
         list_not_installed.append(x.name)
     console = Console()
     table = Table(show_header=True)
