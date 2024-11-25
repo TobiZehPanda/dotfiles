@@ -135,18 +135,22 @@ def delete_config(names):
       exit(1)
     for x in full_config_list:
       if name == x.name:
-        full_config_list.remove(x)
-        print(f"Deleting {x.source}")
-        if isfile(full_path(x.source)):
-          os.remove(full_path(x.source))
-        elif isdir(full_path(x.source)):
-          shutil.rmtree(full_path(x.source))
-        if not x.source2 == "":
-          print(f"Deleting {x.source2}")
-          if isfile(full_path(x.source2)):
-            os.remove(full_path(x.source2))
-          elif isdir(full_path(x.source2)):
-            shutil.rmtree(full_path(x.source2))
+        try:
+          full_config_list.remove(x)
+          print(f"Deleting {x.source}")
+          if isfile(full_path(x.source)):
+            os.remove(full_path(x.source))
+          elif isdir(full_path(x.source)):
+            shutil.rmtree(full_path(x.source))
+          if not x.source2 == "":
+            print(f"Deleting {x.source2}")
+            if isfile(full_path(x.source2)):
+              os.remove(full_path(x.source2))
+            elif isdir(full_path(x.source2)):
+              shutil.rmtree(full_path(x.source2))
+        except Exception as e:
+          print(f"Error deleting [bold red]{x.name}[/bold red]. Go fix it. \n [bold red]{e}[/bold red]")
+          exit(1)
   write_config(full_config_list)
 
 
