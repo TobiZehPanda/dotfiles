@@ -4,6 +4,7 @@ import os
 from os.path import expanduser, abspath, isfile, islink, isdir, dirname
 import argparse
 import itertools
+import shutil
 from rich import print
 from rich.table import Table
 from rich.console import Console
@@ -129,9 +130,23 @@ def remove_config(names):
 
 def delete_config(names):
   for name in names:
+    if not name in full_config_list:
+      print(f"Either [bold red]{name}[/bold red] does not exist or not found...")
+      exit(1)
     for x in full_config_list:
       if name == x.name:
         full_config_list.remove(x)
+        print(f"Deleting {x.source}")
+        if isfile(full_path(x.source)):
+          os.remove(full_path(x.source))
+        elif isdir(full_path(x.source)):
+          shutil.rmtree(full_path(x.source))
+        if not x.source2 == "":
+          print(f"Deleting {x.source2}")
+          if isfile(full_path(x.source2)):
+            os.remove(full_path(x.source2))
+          elif isdir(full_path(x.source2)):
+            shutil.rmtree(full_path(x.source2))
   write_config(full_config_list)
 
 
