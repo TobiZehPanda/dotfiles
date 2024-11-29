@@ -1,3 +1,4 @@
+caffeine,.config/caffeine/whitelist.txt,/home/tobi/.config/caffeine/whitelist.txt,,
 dunst,.config/dunst,~/.config/dunst,,
 hyprland,.config/hypr,~/.config/hypr,,
 i3,.config/i3/config,~/.config/i3/config,,
