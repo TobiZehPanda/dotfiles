@@ -3,14 +3,13 @@ import csv
 import itertools
 import os
 import shutil
-from   dataclasses  import dataclass
-from   os.path      import expanduser, abspath, isfile, islink, isdir, dirname
-from   pydantic     import BaseModel
-from   rich         import box
-from   rich         import print
-from   rich.console import Console
-from   rich.table   import Table
-from   typing       import Union,      Optional
+from   os.path              import expanduser, abspath, isfile, islink, isdir, dirname
+from   pydantic.dataclasses import dataclass
+from   rich                 import box
+from   rich                 import print
+from   rich.console         import Console
+from   rich.table           import Table
+from   typing               import Union,      Optional
 
 CONFIG = "./configurations.csv"
 
@@ -19,8 +18,8 @@ class default_config:
   name: str = ""
   source: str = ""
   destination: str = ""
-  source2: Optional[str] = ""
-  destination2: Optional[str] = ""
+  source2: str | None = None
+  destination2: str | None = None
 
 
 def full_path(path):
