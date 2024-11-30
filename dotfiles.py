@@ -1,24 +1,27 @@
-import csv
-from dataclasses import dataclass
-import os
-from os.path import expanduser, abspath, isfile, islink, isdir, dirname
 import argparse
+import csv
 import itertools
+import os
 import shutil
-from rich import print
-from rich.table import Table
-from rich.console import Console
-from rich import box
+from   dataclasses  import dataclass
+from   os.path      import expanduser, abspath, isfile, islink, isdir, dirname
+from   pydantic     import BaseModel
+from   rich         import box
+from   rich         import print
+from   rich.console import Console
+from   rich.table   import Table
+from   typing       import Union,      Optional
 
 CONFIG = "./configurations.csv"
 
 @dataclass
-class config:
+class default_config:
   name: str = ""
   source: str = ""
   destination: str = ""
-  source2: str = ""
-  destination2: str = ""
+  source2: Optional[str] = ""
+  destination2: Optional[str] = ""
+
 
 def full_path(path):
   return abspath(expanduser(path))
@@ -29,11 +32,11 @@ def config_init():
     reader = csv.reader(csvfile)
     i = 0
     for row in reader:
-      config_list.append(config())
-      config_list[i].name = row[0]
-      config_list[i].source = row[1]
-      config_list[i].destination = row[2]
-      config_list[i].source2 = row[3]
+      config_list.append(default_config())
+      config_list[i].name         = row[0]
+      config_list[i].source       = row[1]
+      config_list[i].destination  = row[2]
+      config_list[i].source2      = row[3]
       config_list[i].destination2 = row[4]
       i = i + 1
   return sorted(config_list, key=lambda x: x.name)
@@ -48,11 +51,11 @@ def add_config(name, source, destination, source2, destination2):
     csvfile.write(f"{name},{source},{destination},{source2},{destination2}\n")
 
 def split_list(config_list):
-  installed = []
-  not_installed = []
-  installed_names = []
+  installed           = []
+  not_installed       = []
+  installed_names     = []
   not_installed_names = []
-  full_names = []
+  full_names          = []
   for config in config_list:
     if islink(full_path(config.destination)):
       installed.append(config)
@@ -102,13 +105,6 @@ def install_config(names):
           except Exception as e:
             print(f"Error installing [bold red]{x.name}[/bold red]. Go fix it. \n [bold red]{e}[/bold red]")
             exit(1)
-
-def remove_duplicate(x):
-  final_list = []
-  for y in x:
-    if x not in final_list:
-      final_list.append(x)
-  return final_list
 
 def remove_config(names):
   for name in names:
