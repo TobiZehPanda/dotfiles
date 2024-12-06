@@ -84,5 +84,8 @@
   "theme.bar.buttons.modules.netstat.enableBorder": false,
   "theme.bar.buttons.modules.storage.enableBorder": false,
   "bar.customModules.netstat.networkInterface": "wlp7s0",
-  "bar.customModules.netstat.dynamicIcon": false
+  "bar.customModules.netstat.dynamicIcon": false,
+  "bar.customModules.netstat.labelType": "in",
+  "bar.workspaces.show_numbered": true,
+  "bar.network.showWifiInfo": true
 }
