@@ -26,6 +26,7 @@ alias tb="nc termbin.com 9999"
 alias wg="sudo wg"
 alias less="less -R"
 alias rm="rm --interactive=never"
+alias sync_status="watch -d grep -e Dirty: -e Writeback: /proc/meminfo"
 
 source ~/.zsh/catppuccin_mocha-zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
