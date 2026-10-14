@@ -77,7 +77,7 @@ QtObject {
         _info.command = ["sh", "-c",
             "dev='" + ifaceName + "'; " +
             "ip=$(nmcli -g IP4.ADDRESS device show \"$dev\" 2>/dev/null | head -1); " +
-            "freq=$(nmcli -t -f ACTIVE,FREQ device wifi 2>/dev/null | awk -F: '$1==\"yes\"{print $2; exit}'); " +
+            "freq=$(nmcli -t -f ACTIVE,FREQ device wifi list --rescan no 2>/dev/null | awk -F: '$1==\"yes\"{print $2; exit}'); " +
             "name=$(nmcli -t -f NAME,DEVICE connection show --active 2>/dev/null | awk -F: -v d=\"$dev\" '$2==d{print $1; exit}'); " +
             "ac=$(nmcli -g connection.autoconnect connection show \"$name\" 2>/dev/null); " +
             "echo \"IP=$ip\"; echo \"FREQ=$freq\"; echo \"NAME=$name\"; echo \"AUTO=$ac\""]
